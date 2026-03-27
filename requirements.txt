@@ -1,0 +1,8 @@
+openai
+python-dotenv
+Flask[async]>=3.0.2
+google-genai
+gunicorn
+google-api-core>=2.18.0
+nltk
+azure-cognitiveservices-speech

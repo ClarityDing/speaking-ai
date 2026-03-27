@@ -1,0 +1,109 @@
+{
+  "CEFR_level": "B1",
+  "IELTS_score": "4.0",
+  "band_scores": {
+    "CC": 5,
+    "GRA": 4,
+    "LR": 5,
+    "TR": 2
+  },
+  "detailed_feedback": {
+    "CC": {
+      "improvements": [
+        {
+          "point": "Your linking words are repetitive, which makes the writing sound a bit mechanical.",
+          "suggestion": "Try using a wider range of linking words like 'therefore', 'consequently', 'in addition', or 'furthermore' instead of repeating 'So I think'."
+        },
+        {
+          "point": "You do not use paragraphs to separate your main ideas.",
+          "suggestion": "Organize your response into clear paragraphs. Each paragraph should focus on one main idea to help the reader follow your argument more easily."
+        },
+        {
+          "point": "The relationship between some ideas could be clearer.",
+          "suggestion": "Make sure each sentence clearly connects to the one before it. For example, after stating a problem, clearly introduce your solution or reason."
+        }
+      ],
+      "strengths": [
+        {
+          "point": "You show a basic flow of ideas, moving from a problem to a solution.",
+          "quote": "The people think the training is too expensive and it's not important. So I think we need to do some new training..."
+        },
+        {
+          "point": "You use basic linking words to connect your thoughts.",
+          "quote": "So I think / Because software"
+        }
+      ],
+      "summary": "You show some organization, and your ideas can be followed. However, the linking between your sentences is not always smooth, and you use the same linking words often. You also need to use paragraphs to group your ideas better."
+    },
+    "GRA": {
+      "improvements": [
+        {
+          "point": "You need to improve subject-verb agreement in complex sentences.",
+          "suggestion": "Change 'training that have more important' to 'training that has more important'. Remember that 'training' is singular, so the verb should also be singular."
+        },
+        {
+          "point": "You sometimes use subordinate clauses as full sentences, which creates fragments.",
+          "suggestion": "Do not start a sentence with 'Because' unless it is connected to a main clause. For example, combine 'Because software for their daily work to them is very important' with the previous sentence or rephrase it as a complete thought."
+        },
+        {
+          "point": "You need to use more accurate and natural phrasing, especially in complex structures.",
+          "suggestion": "Instead of 'have more important to do about software', consider phrases like 'is more relevant to software' or 'focuses more on software'. Practise forming clear and concise phrases."
+        }
+      ],
+      "strengths": [
+        {
+          "point": "You can form simple sentences with correct subject-verb agreement.",
+          "quote": "The people think the training is too expensive..."
+        }
+      ],
+      "summary": "You use a very limited range of sentence structures. Grammatical errors are frequent and sometimes make your meaning unclear."
+    },
+    "LR": {
+      "improvements": [
+        {
+          "point": "You repeat some words too often, which makes your writing less interesting.",
+          "suggestion": "Try to use different words that mean the same thing, like using 'crucial' or 'vital' instead of repeating 'important'."
+        },
+        {
+          "point": "Some of your word choices are not very precise or natural.",
+          "suggestion": "Instead of 'have more important to do about software', you could say 'is more relevant to software' or 'focuses more on software'."
+        },
+        {
+          "point": "Your vocabulary range is quite restricted.",
+          "suggestion": "Read more English texts and try to learn new words, especially synonyms, to make your writing more varied."
+        }
+      ],
+      "strengths": [
+        {
+          "point": "You use simple words correctly to express basic ideas.",
+          "quote": "too expensive"
+        },
+        {
+          "point": "You use some topic-specific words, even if they are basic.",
+          "quote": "training"
+        }
+      ],
+      "summary": "You use a limited range of vocabulary, and you repeat some words often. Your word choices are generally simple, which makes your meaning mostly clear."
+    },
+    "TR": {
+      "improvements": [
+        {
+          "point": "You need to make sure your answer directly addresses the question asked.",
+          "suggestion": "Carefully read the question to understand the main topic and what you need to discuss. Then, plan your ideas to stay focused on that topic."
+        }
+      ],
+      "strengths": [
+        {
+          "point": "You state a clear opinion about the topic you discuss.",
+          "quote": "I think we need to change the training."
+        }
+      ],
+      "summary": "You do not address the question about young people's communication methods. Your response discusses training and software, which is a different topic."
+    }
+  },
+  "speech_metrics": {
+    "fluency": 61,
+    "pause_count": 20,
+    "pronunciation": 96
+  }
+}

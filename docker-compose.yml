@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    image: speaking-ielts-api
+    container_name: speaking-ielts-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: python -m flask run --host=0.0.0.0 --port=8000 --reload
+    environment:
+      - FLASK_APP=app/app.py
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    restart: unless-stopped
