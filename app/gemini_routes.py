@@ -267,9 +267,9 @@ async def evaluate_gemini():
     exercise_id = data.get("exerciseID")
     essay_title = data.get("essayTitle")
 
-    audio_path = "./audio/Q1_fluency_6.5_s3028@dptspeaking.com.wav"
-    speech_result = run_azure_assessment(audio_path)
-    # speech_result = run_speech_super_assessment(audio_path)
+    audio_path = "./audio/" + "Q5_fluency_8.5_alu0101576312@ull.edu.es" + ".wav"
+    # speech_result = run_azure_assessment(audio_path)
+    speech_result = run_speech_super_assessment(audio_path)
 
     if not speech_result or "error" in speech_result:
         err = (

@@ -1,6 +1,6 @@
 [   
     {
-        "exerciseID": "speaking",
+        "exerciseID": "B3",
         "criteria": [
             "As the employee, leave a voice message summarizing this complaint to your boss.",
             "Include an appropriate solution which solves the complaint and makes the customer happy.",
@@ -105,7 +105,8 @@
             "Provide reasons to support your viewpoint."],
         "cueCardContent" : "A: Attending unversity is not only about studying; it's even more about developing your personality and character. \nB: To be an excellent student, you just need to enjoy spending time with books.",
         "taskType": "Speaking",
-        "AudioLimited": 60
+        "AudioLimited": 60,
+        "promptTr": true
     },
     {
         "exerciseID": "demo-0",
@@ -119,7 +120,7 @@
         "promptTr": true
     },
         {
-        "exerciseID": "demo-1",
+        "exerciseID": "Q3-demo",
         "criteria": [
             "As the employee, leave a voice message summarizing this complaint to your boss.",
             "Include an appropriate solution which solves the complaint and makes the customer happy.",
@@ -135,7 +136,7 @@
             "Comment on both statements, considering more than one point of view.",
             "Give your own opinion on the issue.",
             "Provide reasons to support your viewpoint."],
-        "cueCardContent" : "Attending unversity is not only about studying; it's even more about developing your personality and character. \nTo be an excellent student, you just need to enjoy spending time with books.",
+        "cueCardContent" : "A: Attending unversity is not only about studying; it's even more about developing your personality and character. \nB: To be an excellent student, you just need to enjoy spending time with books.",
         "taskType": "Speaking",
         "AudioLimited": 60,
         "promptTr": true
@@ -158,7 +159,7 @@
             "Mention some of the activities she most likes.",
             "Say something about her character or personality."
             ],
-        "cueCardContent" : "Week 1 (Dates: 3rd – 8th)\nMonday 3rd: Bike ride with Meera at 10am.\nTuesday 4th: 6pm Swimming.\nWednesday 5th: 7pm Theatre practice.\nThursday 6th: 6pm Swimming.\nFriday 7th: Party night!.\nSaturday 8th: No events scheduled.\n\n\nWeek 2 (Dates: 10th – 15th)\nMonday 10th: No events scheduled.\nTuesday 11th: 7pm Spanish.\nWednesday 12th: 6pm Swimming.\nThursday 13th: 6pm Movie with Tom and Dimitra.\nFriday 14th: 7pm Sue’s birthday.\nSaturday 15th: 10am Train to Leeds.\n\n\nWeek 3 (Dates: 17th – 22th)\nMonday 17th: No events scheduled.\nTuesday 18th: No Spanish today.\nWednesday 19th: 6pm Swimming.\nThursday 20th: 7pm Theatre practice.\nFriday 21st: 6pm Swimming.\nSaturday 22nd: 2pm Swimming competition.",
+        "cueCardContent" : "Calendar:\nWeek 1 (Dates: 3rd – 8th)\nMonday 3rd: Bike ride with Meera at 10am.\nTuesday 4th: 6pm Swimming.\nWednesday 5th: 7pm Theatre practice.\nThursday 6th: 6pm Swimming.\nFriday 7th: Party night!.\nSaturday 8th: No events scheduled.\n\n\nWeek 2 (Dates: 10th – 15th)\nMonday 10th: No events scheduled.\nTuesday 11th: 7pm Spanish.\nWednesday 12th: 6pm Swimming.\nThursday 13th: 6pm Movie with Tom and Dimitra.\nFriday 14th: 7pm Sue’s birthday.\nSaturday 15th: 10am Train to Leeds.\n\n\nWeek 3 (Dates: 17th – 22th)\nMonday 17th: No events scheduled.\nTuesday 18th: No Spanish today.\nWednesday 19th: 6pm Swimming.\nThursday 20th: 7pm Theatre practice.\nFriday 21st: 6pm Swimming.\nSaturday 22nd: 2pm Swimming competition.",
         "taskType": "Speaking",
         "AudioLimited": 60,
         "promptTr": true
@@ -170,6 +171,28 @@
            
             ],
         "cueCardContent" : "An artist holding a brush and palette, leaning head to one side and looking thoughtful, with a stream of colour pouring out of their head",
+        "taskType": "Speaking",
+        "AudioLimited": 60,
+        "promptTr": false
+    },
+
+    {
+        "exerciseID": "B6",
+        "criteria": [
+           
+            ],
+        "cueCardContent" : "Half-classical-statue, half-modern-person, dressed in smart shirt is drinking large soda out of fast-food cup",
+        "taskType": "Speaking",
+        "AudioLimited": 60,
+        "promptTr": false
+    },
+
+    {
+        "exerciseID": "C6",
+        "criteria": [
+           
+            ],
+        "cueCardContent" : "A vibrant, kaleidoscopic pattern with intricate geometric symmetry and the image of a face. Radiant, colorful lines in shades of orange, yellow, and blue burst outward from a central point, creating a complex starburst effect",
         "taskType": "Speaking",
         "AudioLimited": 60,
         "promptTr": false

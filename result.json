@@ -1,109 +1,144 @@
 {
-  "CEFR_level": "B1",
-  "IELTS_score": "4.0",
+  "CEFR_level": "C1",
+  "IELTS_score": "7.0",
   "band_scores": {
-    "CC": 5,
-    "GRA": 4,
-    "LR": 5,
-    "TR": 2
+    "FC": 8.5,
+    "GRA": 6.0,
+    "LR": 5.5,
+    "PN": 9.0,
+    "TR": 6.0
   },
   "detailed_feedback": {
-    "CC": {
+    "FC": {
       "improvements": [
         {
-          "point": "Your linking words are repetitive, which makes the writing sound a bit mechanical.",
-          "suggestion": "Try using a wider range of linking words like 'therefore', 'consequently', 'in addition', or 'furthermore' instead of repeating 'So I think'."
-        },
-        {
-          "point": "You do not use paragraphs to separate your main ideas.",
-          "suggestion": "Organize your response into clear paragraphs. Each paragraph should focus on one main idea to help the reader follow your argument more easily."
-        },
-        {
-          "point": "The relationship between some ideas could be clearer.",
-          "suggestion": "Make sure each sentence clearly connects to the one before it. For example, after stating a problem, clearly introduce your solution or reason."
+          "point": "To make your speech even more engaging, you could try to vary your pace slightly at times.",
+          "suggestion": "Practice emphasizing key words or phrases by slowing down a little, then speeding up again, to add more natural rhythm to your speaking."
         }
       ],
       "strengths": [
         {
-          "point": "You show a basic flow of ideas, moving from a problem to a solution.",
-          "quote": "The people think the training is too expensive and it's not important. So I think we need to do some new training..."
+          "point": "You speak at a fast and steady speed that matches a high level of fluency.",
+          "quote": "Your speed was 147 words per minute."
         },
         {
-          "point": "You use basic linking words to connect your thoughts.",
-          "quote": "So I think / Because software"
+          "point": "You speak without any noticeable long pauses, which makes your speech very natural.",
+          "quote": "You had no long pauses in your speech."
+        },
+        {
+          "point": "You connect your ideas very smoothly without pausing in the middle of your sentences.",
+          "quote": "Employing young staff will provide innovative ideas to a company, especially nowadays that there is a competitive ground between companies."
         }
       ],
-      "summary": "You show some organization, and your ideas can be followed. However, the linking between your sentences is not always smooth, and you use the same linking words often. You also need to use paragraphs to group your ideas better."
+      "summary": "You speak at a very good speed and maintain a smooth, continuous flow throughout your response. Your speech is very fluent and easy to follow."
     },
     "GRA": {
       "improvements": [
         {
-          "point": "You need to improve subject-verb agreement in complex sentences.",
-          "suggestion": "Change 'training that have more important' to 'training that has more important'. Remember that 'training' is singular, so the verb should also be singular."
+          "point": "You sometimes have issues with subject-verb agreement, especially with collective nouns or when the subject is separated from the verb.",
+          "suggestion": "For example, instead of 'the older staff, they have the ideas... but it doesn't have a innovative idea', you could say 'the older staff have the ideas... but they don't have innovative ideas'. Remember to match the verb to the correct subject."
         },
         {
-          "point": "You sometimes use subordinate clauses as full sentences, which creates fragments.",
-          "suggestion": "Do not start a sentence with 'Because' unless it is connected to a main clause. For example, combine 'Because software for their daily work to them is very important' with the previous sentence or rephrase it as a complete thought."
+          "point": "You sometimes use articles incorrectly.",
+          "suggestion": "For instance, 'a innovative idea' should be 'an innovative idea'. Pay attention to whether the next word starts with a vowel sound when using 'a' or 'an'."
         },
         {
-          "point": "You need to use more accurate and natural phrasing, especially in complex structures.",
-          "suggestion": "Instead of 'have more important to do about software', consider phrases like 'is more relevant to software' or 'focuses more on software'. Practise forming clear and concise phrases."
+          "point": "You can improve the clarity of your sentence structure, especially in longer sentences.",
+          "suggestion": "For example, 'that will be better to, in order for the company to succeed and be a better one and be more competitive towards others' could be rephrased as 'that will be better for the company to succeed, become a better one, and be more competitive towards others'. Try to keep your sentence structure direct and clear."
         }
       ],
       "strengths": [
         {
-          "point": "You can form simple sentences with correct subject-verb agreement.",
-          "quote": "The people think the training is too expensive..."
+          "point": "You use gerunds as subjects effectively.",
+          "quote": "Employing young staff... will provide innovative ideas..."
+        },
+        {
+          "point": "You use relative clauses to add detail.",
+          "quote": "...how the company works..."
+        },
+        {
+          "point": "You use conjunctions to connect ideas.",
+          "quote": "...but it doesn't have a innovative idea..."
         }
       ],
-      "summary": "You use a very limited range of sentence structures. Grammatical errors are frequent and sometimes make your meaning unclear."
+      "summary": "You use a mix of simple and complex sentences to express your ideas. While you attempt a variety of structures, some errors in complex sentences can make your meaning less clear."
     },
     "LR": {
       "improvements": [
         {
-          "point": "You repeat some words too often, which makes your writing less interesting.",
-          "suggestion": "Try to use different words that mean the same thing, like using 'crucial' or 'vital' instead of repeating 'important'."
+          "point": "You use the same words too often.",
+          "suggestion": "Try to use different words to express 'succeed' or 'successful' to show more variety."
         },
         {
-          "point": "Some of your word choices are not very precise or natural.",
-          "suggestion": "Instead of 'have more important to do about software', you could say 'is more relevant to software' or 'focuses more on software'."
+          "point": "Some of your word choices are not natural.",
+          "suggestion": "Instead of 'competitive ground', you could say 'competitive environment' or 'competitive market'."
         },
         {
-          "point": "Your vocabulary range is quite restricted.",
-          "suggestion": "Read more English texts and try to learn new words, especially synonyms, to make your writing more varied."
+          "point": "You use some phrases incorrectly.",
+          "suggestion": "The phrase 'no matter' at the end of your response doesn't fit the context. Try to use phrases that clearly convey your intended meaning."
         }
       ],
       "strengths": [
         {
-          "point": "You use simple words correctly to express basic ideas.",
-          "quote": "too expensive"
+          "point": "You use some topic-specific words from the prompt.",
+          "quote": "...innovative ideas..."
         },
         {
-          "point": "You use some topic-specific words, even if they are basic.",
-          "quote": "training"
+          "point": "You try to use a slightly more descriptive phrase.",
+          "quote": "...make it richer with new ideas..."
         }
       ],
-      "summary": "You use a limited range of vocabulary, and you repeat some words often. Your word choices are generally simple, which makes your meaning mostly clear."
+      "summary": "You use a basic range of words to talk about the topic. While your meaning is generally clear, you often repeat the same words and phrases."
+    },
+    "PN": {
+      "improvements": [
+        {
+          "point": "While your pronunciation is highly accurate, you can continue to refine very subtle aspects of some sounds.",
+          "suggestion": "For example, ensure the 'w' sound in words like 'will' is always fully clear and distinct."
+        }
+      ],
+      "strengths": [
+        {
+          "point": "You pronounce individual sounds with exceptional clarity and accuracy.",
+          "quote": "Employing young staff"
+        },
+        {
+          "point": "You consistently place stress on the correct syllables in words, which helps make your speech very clear.",
+          "quote": "innovative ideas"
+        },
+        {
+          "point": "You link words together very naturally, which contributes to the smooth flow of your speech.",
+          "quote": "ideas of how"
+        }
+      ],
+      "summary": "Your pronunciation is excellent and effortlessly understood throughout. Your accent has no effect on intelligibility, making your speech very clear and natural."
     },
     "TR": {
       "improvements": [
         {
-          "point": "You need to make sure your answer directly addresses the question asked.",
-          "suggestion": "Carefully read the question to understand the main topic and what you need to discuss. Then, plan your ideas to stay focused on that topic."
+          "point": "You need to discuss both statements more fully.",
+          "suggestion": "Try to explore the benefits of older staff in more detail before giving your opinion, rather than immediately comparing them to young staff."
+        },
+        {
+          "point": "Your ideas need more development.",
+          "suggestion": "Explain how young people's ideas make a company 'bigger' or 'richer' with specific examples. Also, explain how older staff's 'know-how' contributes to success."
         }
       ],
       "strengths": [
         {
-          "point": "You state a clear opinion about the topic you discuss.",
-          "quote": "I think we need to change the training."
+          "point": "You clearly state your main opinion.",
+          "quote": "I think that employing young people will make the company bigger."
+        },
+        {
+          "point": "You provide reasons for your viewpoint.",
+          "quote": "richer with new ideas / more competitive"
+        },
+        {
+          "point": "You mention both sides of the topic.",
+          "quote": "young staff / older staff"
         }
       ],
-      "summary": "You do not address the question about young people's communication methods. Your response discusses training and software, which is a different topic."
+      "summary": "You address both statements in the task and clearly state your opinion. You provide some reasons to support your main point, but the discussion of different viewpoints could be more balanced."
     }
-  },
-  "speech_metrics": {
-    "fluency": 61,
-    "pause_count": 20,
-    "pronunciation": 96
   }
 }

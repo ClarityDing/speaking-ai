@@ -119,11 +119,11 @@ DIGRAPHS = [
 def score_to_quality(score: float, error_type: str = "None") -> str:
     if error_type in ("Omission", "Insertion"):
         return "Incorrect/Missing"
-    if score >= 80:
+    if score >= 75:
         return "Excellent"
-    if score >= 60:
+    if score >= 50:
         return "Clear"
-    if score >= 40:
+    if score >= 30:
         return "Noticeable Accent"
     if score >= 20:
         return "Weak/Distorted"

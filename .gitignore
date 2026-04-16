@@ -37,4 +37,6 @@ ehthumbs.db
 Thumbs.db
 __pycache__/
 app/check_health.http
+.env
+settings.local.json
 audio/

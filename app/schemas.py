@@ -20,5 +20,7 @@ class FeedbackPayload(BaseModel):
 
 
 class GradingResult(BaseModel):
-    score: int = Field(description="The final integer band score for this criterion.")
+    score: float = Field(
+        description="The final band score for this criterion, in 0.5 increments (e.g. 6.0, 6.5, 7.0)."
+    )
     feedback: FeedbackPayload
