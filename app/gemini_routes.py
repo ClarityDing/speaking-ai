@@ -47,7 +47,7 @@ async def _call_gemini_api_async(criterion, prompt_template, semaphore, **kwargs
 
                 config = types.GenerateContentConfig(
                     temperature=0.0,
-                    thinking_config=types.ThinkingConfig(thinking_budget=1024),
+                    thinking_config=types.ThinkingConfig(thinking_budget=2048),
                     response_mime_type="application/json",
                     response_schema=GradingResult,
                 )
@@ -267,7 +267,7 @@ async def evaluate_gemini():
     exercise_id = data.get("exerciseID")
     essay_title = data.get("essayTitle")
 
-    audio_path = "./audio/" + "Q5_fluency_8.5_alu0101576312@ull.edu.es" + ".wav"
+    audio_path = "./audio/" + "Q3_fluency_8_david@comasjapan.com" + ".wav"
     # speech_result = run_azure_assessment(audio_path)
     speech_result = run_speech_super_assessment(audio_path)
 

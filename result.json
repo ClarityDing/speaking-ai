@@ -1,144 +1,139 @@
 {
   "CEFR_level": "C1",
-  "IELTS_score": "7.0",
+  "IELTS_score": "7.5",
   "band_scores": {
-    "FC": 8.5,
-    "GRA": 6.0,
-    "LR": 5.5,
-    "PN": 9.0,
+    "FC": 9.0,
+    "GRA": 8.0,
+    "LR": 7.0,
+    "PN": 8.5,
     "TR": 6.0
   },
   "detailed_feedback": {
     "FC": {
       "improvements": [
         {
-          "point": "To make your speech even more engaging, you could try to vary your pace slightly at times.",
-          "suggestion": "Practice emphasizing key words or phrases by slowing down a little, then speeding up again, to add more natural rhythm to your speaking."
+          "point": "You already have excellent flow and speed.",
+          "suggestion": "Keep practicing speaking on many different topics to make sure your flow stays this good, even with very difficult ideas."
         }
       ],
       "strengths": [
         {
-          "point": "You speak at a fast and steady speed that matches a high level of fluency.",
-          "quote": "Your speed was 147 words per minute."
+          "point": "You speak at a very fast and natural speed.",
+          "quote": "Your speed was 204 words per minute."
         },
         {
-          "point": "You speak without any noticeable long pauses, which makes your speech very natural.",
+          "point": "You speak continuously without any pauses.",
           "quote": "You had no long pauses in your speech."
         },
         {
-          "point": "You connect your ideas very smoothly without pausing in the middle of your sentences.",
-          "quote": "Employing young staff will provide innovative ideas to a company, especially nowadays that there is a competitive ground between companies."
+          "point": "Your speech flows very smoothly, like a native speaker.",
+          "quote": "For the most part, I think, going to university is a waste of time."
         }
       ],
-      "summary": "You speak at a very good speed and maintain a smooth, continuous flow throughout your response. Your speech is very fluent and easy to follow."
+      "summary": "You speak with exceptional fluency and at a very fast pace. Your speech is continuous and smooth, showing no hesitation or pauses."
     },
     "GRA": {
-      "improvements": [
-        {
-          "point": "You sometimes have issues with subject-verb agreement, especially with collective nouns or when the subject is separated from the verb.",
-          "suggestion": "For example, instead of 'the older staff, they have the ideas... but it doesn't have a innovative idea', you could say 'the older staff have the ideas... but they don't have innovative ideas'. Remember to match the verb to the correct subject."
-        },
-        {
-          "point": "You sometimes use articles incorrectly.",
-          "suggestion": "For instance, 'a innovative idea' should be 'an innovative idea'. Pay attention to whether the next word starts with a vowel sound when using 'a' or 'an'."
-        },
-        {
-          "point": "You can improve the clarity of your sentence structure, especially in longer sentences.",
-          "suggestion": "For example, 'that will be better to, in order for the company to succeed and be a better one and be more competitive towards others' could be rephrased as 'that will be better for the company to succeed, become a better one, and be more competitive towards others'. Try to keep your sentence structure direct and clear."
-        }
-      ],
+      "improvements": [],
       "strengths": [
         {
-          "point": "You use gerunds as subjects effectively.",
-          "quote": "Employing young staff... will provide innovative ideas..."
+          "point": "You use a variety of subordinate adverbial clauses to add detail and context to your statements.",
+          "quote": "...when you go into the real world and you start to do a job."
         },
         {
-          "point": "You use relative clauses to add detail.",
-          "quote": "...how the company works..."
+          "point": "You effectively use relative clauses to provide specific information about nouns.",
+          "quote": "Most of the subjects that you study are pretty useless..."
         },
         {
-          "point": "You use conjunctions to connect ideas.",
-          "quote": "...but it doesn't have a innovative idea..."
+          "point": "You skillfully employ noun clauses to express your opinions and feelings.",
+          "quote": "I feel that you don't need to be an excellent student."
+        },
+        {
+          "point": "You use gerunds as subjects and objects of prepositions to discuss actions and activities.",
+          "quote": "picking a university that has a name is more important than the grades."
         }
       ],
-      "summary": "You use a mix of simple and complex sentences to express your ideas. While you attempt a variety of structures, some errors in complex sentences can make your meaning less clear."
+      "summary": "You use a wide range of grammatical structures flexibly and accurately. Your sentences are frequently error-free, and you effectively combine both simple and complex forms to express your ideas clearly."
     },
     "LR": {
       "improvements": [
         {
-          "point": "You use the same words too often.",
-          "suggestion": "Try to use different words to express 'succeed' or 'successful' to show more variety."
-        },
-        {
-          "point": "Some of your word choices are not natural.",
-          "suggestion": "Instead of 'competitive ground', you could say 'competitive environment' or 'competitive market'."
-        },
-        {
-          "point": "You use some phrases incorrectly.",
-          "suggestion": "The phrase 'no matter' at the end of your response doesn't fit the context. Try to use phrases that clearly convey your intended meaning."
+          "point": "You sometimes repeat the same phrases.",
+          "suggestion": "Try to use different ways to say 'for the most part' or 'real world' to show more variety in your vocabulary."
         }
       ],
       "strengths": [
         {
-          "point": "You use some topic-specific words from the prompt.",
-          "quote": "...innovative ideas..."
+          "point": "You use natural, common phrases that make your speech sound fluent.",
+          "quote": "...waste of time."
         },
         {
-          "point": "You try to use a slightly more descriptive phrase.",
-          "quote": "...make it richer with new ideas..."
+          "point": "You use specific words to talk about education.",
+          "quote": "...prestigious school."
+        },
+        {
+          "point": "You use clear and direct language to express your feelings.",
+          "quote": "...big shock..."
         }
       ],
-      "summary": "You use a basic range of words to talk about the topic. While your meaning is generally clear, you often repeat the same words and phrases."
+      "summary": "You use a good range of everyday words to talk about the topic clearly. Your vocabulary helps you express your ideas well and is easy to understand."
     },
     "PN": {
       "improvements": [
         {
-          "point": "While your pronunciation is highly accurate, you can continue to refine very subtle aspects of some sounds.",
-          "suggestion": "For example, ensure the 'w' sound in words like 'will' is always fully clear and distinct."
+          "point": "Sometimes, you mispronounce certain sounds, which can occasionally affect clarity.",
+          "suggestion": "Pay attention to sounds like the 't' in 'most' and 'part', and the 'p' in 'part'. Practice these sounds to make them clearer."
+        },
+        {
+          "point": "While your word stress is generally good, there are a few instances where the stress is placed on the wrong syllable.",
+          "suggestion": "Practice stressing the correct syllable in words like 'sometimes' (stress the first syllable: SOME-times) to improve natural rhythm."
+        },
+        {
+          "point": "Although you link words well, there are opportunities to link more consonant-to-vowel sounds to enhance the flow of your speech.",
+          "suggestion": "Try to link the final consonant of a word to the starting vowel of the next word, for example, in 'picking a' and 'more important'."
         }
       ],
       "strengths": [
         {
-          "point": "You pronounce individual sounds with exceptional clarity and accuracy.",
-          "quote": "Employing young staff"
+          "point": "You pronounce most individual sounds clearly and accurately, making your speech very easy to follow.",
+          "quote": "real world"
         },
         {
-          "point": "You consistently place stress on the correct syllables in words, which helps make your speech very clear.",
-          "quote": "innovative ideas"
+          "point": "You generally place stress correctly on words, which helps with the natural flow of your speech.",
+          "quote": "going to university"
         },
         {
-          "point": "You link words together very naturally, which contributes to the smooth flow of your speech.",
-          "quote": "ideas of how"
+          "point": "You link words together well, especially consonant-to-vowel sounds, which makes your speech sound natural and connected.",
+          "quote": "is a waste"
         }
       ],
-      "summary": "Your pronunciation is excellent and effortlessly understood throughout. Your accent has no effect on intelligibility, making your speech very clear and natural."
+      "summary": "Your pronunciation is very clear and easy to understand, with your accent having only a minimal effect on intelligibility. You use a good range of pronunciation features effectively."
     },
     "TR": {
       "improvements": [
         {
-          "point": "You need to discuss both statements more fully.",
-          "suggestion": "Try to explore the benefits of older staff in more detail before giving your opinion, rather than immediately comparing them to young staff."
+          "point": "You need to consider more than one point of view.",
+          "suggestion": "When the question asks you to consider various viewpoints, try to explain different perspectives on the topic, not just your own."
         },
         {
-          "point": "Your ideas need more development.",
-          "suggestion": "Explain how young people's ideas make a company 'bigger' or 'richer' with specific examples. Also, explain how older staff's 'know-how' contributes to success."
+          "point": "You need to develop your ideas more fully.",
+          "suggestion": "Explain your reasons in more detail. For example, you could give specific examples of why subjects are useless or how colleges are not like the real world."
         }
       ],
       "strengths": [
         {
-          "point": "You clearly state your main opinion.",
-          "quote": "I think that employing young people will make the company bigger."
+          "point": "You clearly state your main opinion on the topic.",
+          "quote": "going to university is a waste of time."
         },
         {
-          "point": "You provide reasons for your viewpoint.",
-          "quote": "richer with new ideas / more competitive"
+          "point": "You provide reasons to support your viewpoint.",
+          "quote": "subjects that you study are pretty useless"
         },
         {
-          "point": "You mention both sides of the topic.",
-          "quote": "young staff / older staff"
+          "point": "You address both parts of the question.",
+          "quote": "you can develop your character, but I fear..."
         }
       ],
-      "summary": "You address both statements in the task and clearly state your opinion. You provide some reasons to support your main point, but the discussion of different viewpoints could be more balanced."
+      "summary": "You clearly state your opinion on the topic and provide reasons to support your ideas. You address both statements in the question, but you could explore different viewpoints more deeply."
     }
   }
 }

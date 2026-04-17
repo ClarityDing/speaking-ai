@@ -368,33 +368,176 @@ Rubric Criteria: {RUBRIC_CRITERIA}
 PROMPT_GRA = """
 You are an IELTS Speaking Grammatical Range and Accuracy (GRA) examiner. Assess grammar based on the provided Rubric Criteria.
 
-### Internal Analysis (Not in output)
-**CRITICAL - Rubric Application**: 
-You MUST use the provided Rubric criteria below as your primary reference for scoring. Your assessment in Steps 1-3 must align with the band descriptors in the Rubric.
+### Internal Analysis (reasoning — do not emit in JSON output, but you MUST perform every step)
 
-1. **Range & Complexity**: Credit length of spoken sentences and structural variety (3+ complex structure types with generally acceptable accuracy for high bands): subordinate clauses, conditionals, relative clauses, etc.
-2. **Error Assessment Framework**:
-   **High-Band Foundation**: Start from a provisional Band 7. Only lower the score if there is clear, consistent evidence of weaker performance.
+**MANDATORY SCORING PROCEDURE — NO SHORTCUTS ALLOWED**:
+You MUST compute the final score by running Steps 1 → 2 → 3 → 4 in order:
 
-   **Error Rate Principle**: Assess errors relative to response length (i.e., error frequency per amount of speech), NOT as a raw count. A few errors in a long, complex response indicates lower error density than the same errors in a short response. Research shows that even C1-level speakers make grammatical errors in over 50% of their errors — the presence of errors alone does NOT indicate low proficiency.
+- **Step 1**: Enumerate EVERY structure type present in the transcript with at least one quoted example per type (scan all 10 types; do not stop at 2-3). Compute the **Range Band**.
+- **Step 2**: Count error-free sentences (T-units). Compute the **Accuracy Band**.
+- **Step 3**: Combine via Gap-Capped min: `final = max(min(Range Band, Accuracy Band), Range Band - 2)`. Apply short-sample adjustment if applicable. This is the FINAL SCORE.
+- **Step 4**: Write summary wording aligned with the rubric descriptor of the Step 3 band. Does NOT change the score.
 
-   **High-Impact Errors** (meaning-distorting or comprehension-disrupting):
-   - Core grammar: subject-verb agreement, tense consistency, verb form errors
-   - Sentence structure: faulty subordination, unclear clause connections
+**FORBIDDEN SHORTCUTS**:
+- Do NOT read the Rubric Criteria, pick a band whose wording "sounds right", and emit that as the score. That is pattern-matching, not scoring.
+- Do NOT skip Step 1's enumeration and jump to a "vibes-based" range judgement.
+- Do NOT decide the score first and then backfill Steps 1-3 to justify it.
+- The Rubric Criteria are used ONLY in Step 4 to align the SUMMARY wording. They do NOT determine the score — the Step 3 computation does.
 
-   NOTE: This is a speaking assessment. Do NOT penalise for errors typical of spontaneous speech (e.g., self-corrections, incomplete sentences, natural hesitation patterns).
+**CRITICAL - Rubric Application**:
+The rubric defines bands by TWO INDEPENDENT dimensions that are CONJOINED (Range AND Accuracy). Your scoring MUST reflect this by computing each dimension as its own band, then combining via Gap-Capped min(). Use the provided Rubric Criteria as the canonical reference for band descriptors used in Step 4 feedback wording only.
 
-   **Low-Impact Errors** (meaning-preserving, minor slips):
-   - Article errors (a/an/the) where meaning remains clear
-   - Minor preposition slips in non-critical contexts
-   - Isolated, non-systematic errors → minimal penalty if range and complexity strong
+**Principle Priority Order (apply in this order before any scoring)**:
+Apply the following filters in sequence. If an utterance matches an earlier filter, do NOT re-evaluate it with a later principle.
 
-   **Assessment Principle**: Prioritize error frequency/density, systematicity, and impact on communication over error counting. A response with 2-3 systematic high-impact errors is weaker than one with 5-6 scattered low-impact errors.
+**Filter 1 — Spontaneous Speech (FIRST, highest priority)**:
+This is a SPEAKING assessment. The following are NOT grammar errors and MUST be excluded from ALL scoring analysis:
 
-3. **Scoring – use the official GRA rubric**:
-   - Always use "Rubric Criteria['GRA']" as the final reference for the band.
-   - First, use your analysis from Steps 1-2 to form an initial band impression, starting from Band 7.
-   - Finally, read the text for GRA["4"], GRA["6"], GRA["8"], and GRA["9"], and choose the band whose description best matches the performance. Output a score in 0.5 increments only.
+  - **Self-corrections** — the speaker PRODUCES something, notices a problem, and REPLACES it mid-utterance. The defining test: a wrong form is produced, then a corrected form follows. Examples:
+    - *"The girls are drinking, er, eating soup"* (wrong verb → corrected)
+    - *"She have — she has three cats"* (wrong agreement → corrected)
+    - *"I goed, I mean, went to the store"* (wrong past form → corrected)
+    Treat the FINAL corrected form as the student's intended utterance and judge THAT. Do NOT count the abandoned fragment as an error. Self-correction is a POSITIVE ability, not a weakness.
+
+  - **Discourse markers / stance markers / hedges** — DIFFERENT from self-corrections. Do NOT confuse the two. These are grammatically complete as-is and are FEATURES of fluent spoken discourse, not corrections of anything:
+    - Stance: *"I think"*, *"I believe"*, *"I suppose"*, *"in my opinion"*, *"for the most part"*
+    - Elaboration/clarification: *"I mean"*, *"you know"*, *"like"*, *"sort of"*
+    - Turn/topic/emphasis: *"well"*, *"so"*, *"actually"*, *"anyway"*, *"yeah"*
+    Do not treat these as errors, and do not treat the clause following them as a "correction" of the preceding text. "I think that X" is a noun-clause construction, not a self-correction.
+
+  - **Incomplete sentences or mid-sentence reformulations** (abandonment): *"that will be better to, in order for..."*, *"...and be more competitive towards others"* — clauses where the speaker gives up mid-phrase without producing a corrected replacement. Ignore the abandoned fragment entirely.
+
+  - **Natural hesitation fillers**: *"um"*, *"uh"*, *"er"* — not errors.
+
+  - **Multiple clauses linked by coordination** (*"and... and... so..."*) — normal spoken cohesion, NOT a structural fault. "Run-on sentence" is a WRITING concept and does not apply to speech.
+
+Even if these look "awkward" or "difficult to follow", they are normal features of spoken language. Research shows even C1 speakers do this in >50% of utterances. Presence of these alone does NOT indicate low proficiency.
+
+**Filter 2 — Communication-Impact Principle**:
+For remaining (non-spontaneous) errors, the key question is: "does the listener have to work to understand?" — NOT whether errors exist or are systematic. Even SYSTEMATIC minor errors (dropping 3rd person singular -s, recurring preposition slips, collective-noun agreement) are acceptable at Band 7 as long as the listener understands without effort. Do NOT penalise errors solely because they recur.
+
+**Error Rate Principle**: Assess errors relative to response length (frequency/density), NOT raw count. 5 errors in 200 words ≠ 5 errors in 40 words.
+
+**Error Types** (apply AFTER Filter 1 has removed spontaneous speech artifacts):
+- **High-impact** (listener must re-process): verb form errors that change meaning (e.g., "he go yesterday" is fine at Band 7 as timeline clear; "I am going" used for past event where context is lost IS high-impact), tense shifts that break the timeline, completely wrong word order that obscures who-did-what.
+- **Low-impact** (listener understands on first hearing): article slips (a/an/the), minor preposition slips, 3rd person singular -s omission, subject-verb agreement slips (including collective nouns treated inconsistently), pluralisation slips, incomplete comparatives where intent is clear.
+Only high-impact errors that actually impede communication should drive the score down. Low-impact errors — even if systematic — are permitted up to Band 7.
+
+1. **Step 1 — Compute the RANGE BAND**:
+   **MANDATORY ENUMERATION**: go through the transcript and identify EVERY occurrence of each of the 10 structure types below. For each type you detect, you MUST silently note at least one verbatim quote from the transcript that instantiates it. Do not stop at the first 3-4 types you recognise — scan for ALL 10. Undercounting = incorrect scoring.
+
+   A structure "counts" if the student uses it at least once with recognisable form (minor errors in the structure do NOT disqualify it). The countable types are:
+
+   1. **Subordinate adverbial clauses** (because, when, while, although, if, so that, etc.)
+   2. **Relative clauses** (who, which, that, where introducing a clause)
+   3. **Noun clauses / complement clauses** ("I think that...", "what he wants", "how the company works")
+   4. **Conditionals** (if-clauses, would/could constructions)
+   5. **Passive voice** ("is provided", "was built")
+   6. **Infinitive purpose / purpose clauses** ("to succeed", "in order to...")
+   7. **Gerund or participle phrases** ("Employing young staff...", "having said that")
+   8. **Modal + verb structures** expressing ability / possibility / obligation (can/should/must/would + verb)
+   9. **Comparatives / superlatives** (more X than Y, as X as Y, the most X)
+   10. **Cleft / emphatic structures** ("It is X that...", "What I mean is...")
+
+   **Flexibility Tests** — judge each detected structure type against THREE concrete tests:
+   1. **Variety within the type**: the structure appears with different lexical fillers / different subjects or complements (not the same formulaic pattern repeated). E.g., relative clauses count as flexible if the student produces "subjects that you study", "places where you work", AND "a university that has a name" — three different head nouns, three different relative pronouns. If all relative clauses are "things that I like" repeated, that is NOT flexible.
+   2. **Integration, not isolation**: the structure appears embedded inside other structures (e.g., a relative clause inside a noun clause, a conditional inside a comparative) rather than always as a standalone surface-level clause.
+   3. **Served meaning, not padding**: the structure is clearly deployed because the idea required it (to contrast, to specify, to hedge, to compare), not as a memorised template dropped in regardless of context.
+
+   **Band 9 Precision Test** — at least ONE of the following high-precision deployments must appear for Band 9:
+   - Non-defining relative clauses adding nuance (e.g., "my brother, who lives in Tokyo, told me...")
+   - Mixed conditionals or past/unreal conditionals ("if I had studied, I would be...")
+   - Perfect aspect used deliberately to shift time reference ("had been working", "will have finished")
+   - Passive voice with meaningful agent-backgrounding (not just mechanical "is provided")
+   - Cleft/emphatic structures for focus ("What surprised me was...")
+   - Reduced relatives or participial adjuncts ("the people living next door...")
+
+   **Range Band** — pick the LAST row your evidence satisfies:
+   - `5` — 0 types (only SVO + coordination)
+   - `6` — 1–2 types, limited flexibility
+   - `7` — 4+ types, most FAIL ≥2 of 3 flex tests
+   - `8` — 5+ types, MAJORITY pass ≥2/3 tests
+   - `8.5` — 6+ types, MAJORITY pass ≥2/3 tests, Precision Test FAILS
+   - `9` — 6+ types, MAJORITY pass ALL 3 tests, Precision Test PASSES
+
+   Tiebreaker notes:
+   - Do NOT default to Band 7 out of caution when the evidence supports Band 8.
+   - If the student only produces isolated phrases or memorised utterances with no real sentence forms → Band 4 or below.
+   - Heavy use of coordination ("and... and... so...") is NORMAL spoken cohesion — does NOT reduce the type count.
+
+2. **Step 2 — Determine ACCURACY BAND from error-free sentence frequency**:
+   The IELTS GRA rubric describes each band as a CONJUNCTION of Range AND Accuracy (e.g., Band 7 requires BOTH "mix of short and complex structures" AND "errors rarely impede communication"). Therefore Accuracy is NOT a modifier on Range — it is an independent band in its own right. The two bands are combined via Gap-Capped min() in Step 3.
+
+   First, estimate the proportion of grammatically error-free sentences. **CRITICAL: ignore spontaneous speech artifacts AND ignore low-impact errors that don't impede meaning** when counting — a sentence with only low-impact slips (article, preposition, 3rd person -s, minor SV agreement) still counts as error-free for scoring purposes.
+
+   **Sentence-counting rule (CRITICAL for stable scoring)** — spoken language has no punctuation, so define "one sentence" as follows:
+   - **Primary rule**: one sentence = one **main clause** (one independent finite-verb cluster) together with any subordinate clauses attached to it. This is the T-unit convention used in spoken-discourse analysis.
+     - *"I think that going to university is a waste of time"* = **1 unit** (main verb *think* + noun-clause complement).
+     - *"Most of the subjects that you study are useless when you go into the real world"* = **1 unit** (main verb *are* + relative clause + adverbial clause).
+     - *"I like coffee, and she likes tea"* = **2 units** (two independent main clauses joined by coordination — split at the *and/but/so*).
+   - **Fallback when boundaries unclear**: count by main predicate. Each distinct finite main verb that introduces a new independent proposition = a new unit. Abandoned fragments without a finite main verb are NOT units (they are excluded per Filter 1).
+   - **Do NOT split at commas, fillers, or discourse markers** (*"I think, um, going to university..."* is still 1 unit, not 2).
+   - **Do NOT count self-correction fragments as separate units** — only the final corrected form counts.
+
+   **Accuracy Band** — error-free % = T-units with no high-impact error:
+   - `9` — >90%, only occasional low-impact slips
+   - `8` — 76–90%, non-systematic errors
+   - `7` — 51–75%, infrequent, rarely impede
+   - `6` — 30–50%, meaning still clear
+   - `5` — <30%, few high-impact
+   - `4` — <30%, high-impact FREQUENTLY impede
+
+   Rule of thumb:
+   - "High-impact" = listener must reconstruct meaning, re-process, or ask for clarification.
+   - Systematic but meaning-preserving errors (e.g., recurring 3rd-person -s drop where timeline is clear) are NOT high-impact.
+   - The Band 9 accuracy tier requires **>90%** error-free AND only **non-systematic** minor errors — consistent with the rubric's "a few basic errors may persist" ceiling.
+
+3. **Step 3 — Combine: Final Band with Gap Cap**:
+   Start with `min(Range Band, Accuracy Band)` to encode the rubric's AND logic. BUT — apply a **Gap Cap** so the final band cannot be MORE THAN 2 BANDS below the Range Band:
+
+   ```
+   tentative   = min(Range Band, Accuracy Band)
+   floor       = Range Band - 2
+   final_band  = max(tentative, floor)
+   ```
+
+   **Why the Gap Cap exists**: pure `min()` is too punitive when range has already been demonstrated. A student who produces 6+ complex structure types with poor accuracy HAS shown Band 8-9 range evidence; collapsing them to Band 5 ignores that evidence and diverges from how human examiners score. The cap keeps the final within 2 bands of Range while still letting Accuracy pull the score down meaningfully.
+
+   **Worked examples**:
+   - Range = 8.5, Accuracy = 8  → tentative = 8, floor = 6.5 → **final = 8**
+   - Range = 9, Accuracy = 6   → tentative = 6, floor = 7 → **final = 7** (cap protects demonstrated Band 9 range)
+   - Range = 9, Accuracy = 5   → tentative = 5, floor = 7 → **final = 7** (cap kicks in)
+   - Range = 8, Accuracy = 6   → tentative = 6, floor = 6 → **final = 6** (exactly 2-band gap, cap is tight but not active)
+   - Range = 6, Accuracy = 9   → tentative = 6, floor = 4 → **final = 6** (narrow range caps score; cap irrelevant in this direction)
+   - Range = 7, Accuracy = 7   → **final = 7**
+
+   **One-sidedness note**: the Gap Cap only protects against Range being dragged down by weak Accuracy. It does NOT push Accuracy up when Range is narrow — a student with narrow range has NOT demonstrated the structures required for a higher band.
+
+   After computing `final_band`, apply ONLY the following adjustment:
+
+   **Short-sample conservative adjustment**: if `Range Band == Accuracy Band` (neither dimension pulled the score down) AND the sample is very short, apply -0.5.
+   - **"Very short" is defined as AUDIO_DURATION < 20 seconds.** Do NOT apply if audio is ≥ 20 seconds.
+   - If AUDIO_DURATION is "not specified", do NOT apply this penalty.
+   - Rationale: a short sample limits evidence for both dimensions. When the two bands already disagree, the min() + cap is already conservative enough.
+
+4. **Step 4 — Align feedback with rubric (NO score change)**:
+   Read GRA["4"], GRA["6"], GRA["8"], and GRA["9"]. Find the descriptor matching the band calculated in Steps 1-3.
+
+   **CRITICAL — Step 4 does NOT change the score. The score is ALREADY FIXED by Step 3.**
+
+   If at this point the rubric descriptor "feels" like it should match a different band than what Step 3 produced, DO NOT adjust the score. The Step 3 computation is authoritative. Rubric language is ONLY for cosmetic alignment of the summary text.
+
+   Common failure mode: at Step 4 you may be tempted to read Band 7 rubric and think "this response sounds like Band 7, let me give it 7". This is the WRONG direction. The correct direction is: Step 3 produced Band 8 → use Band 8 rubric wording in the summary.
+
+   Use rubric wording ONLY to inform your summary phrasing so it aligns with official IELTS language:
+   - Band 9: "wide range of structures, flexibly used", "majority of sentences error-free"
+   - Band 8: "range of structures flexibly used", "error-free sentences are frequent"
+   - Band 7: "generally accurate", "mix of short and complex sentence forms", "errors rarely impede communication"
+   - Band 6: "basic sentence forms fairly well controlled", "complex structures attempted but limited"
+   - Band 5: "short utterances are error-free", "subordinate clauses are rare"
+   - Band 4: "grammatical errors are numerous"
+
+   Output score in 0.5 increments.
 
 ### Output (Start response here)
 
@@ -411,7 +554,18 @@ You MUST use the provided Rubric criteria below as your primary reference for sc
 - FORBIDDEN: "small words", "little words", "small but important words"
 
 **No Improvements Rule - CRITICAL**:
-If no significant issues found, provide ONE minor suggestion for refinement. (e.g., "Consider varying sentence openings more." or "Try to use more varied sentence structures in your answers.")
+An empty improvements array (`"improvements": []`) is fully acceptable and often the correct answer. If no real grammatical issues exist, OMIT the improvement entirely — do NOT fabricate errors, do NOT invent minor issues to fill the array, do NOT add a placeholder item.
+
+**Anti-Hallucination Rule - CRITICAL**:
+For every improvement item you are about to emit, run this verification BEFORE including it in the output:
+1. The `quote` MUST appear verbatim in the student's transcript. Copy-paste it; do not paraphrase.
+2. The quote MUST actually contain the error described in your `point`. If the quote is already grammatically correct, the item FAILS verification.
+3. If your proposed correction is identical to the student's original text, the item FAILS verification.
+
+If an item FAILS verification:
+- DO NOT include it in the `improvements` array.
+- DO NOT write a note or comment saying "removing this point" or "this is a hallucination" — the item must be entirely absent from the JSON output, not present-with-a-disclaimer.
+- Silently omit it and move on. If all your candidate items fail, emit `"improvements": []`.
 
 For summary:
 - Write 1-2 sentences on grammar (second person, present tense)
@@ -433,10 +587,11 @@ For each improvement:
 
 **Suggestion Rules**: Must be actionable with correction and brief explanation
 
-Provide 1-3 items per list. Both lists must have minimum 1 object.
+Strengths: provide 1-3 items (minimum 1). Improvements: provide 0-3 items (empty array is allowed when no real errors exist).
 
 ### Input Data
 Task: {TASK_PROMPT}
 Response: {STUDENT_RESPONSE}
+Audio Duration: {AUDIO_DURATION}
 Rubric Criteria: {RUBRIC_CRITERIA}
 """
