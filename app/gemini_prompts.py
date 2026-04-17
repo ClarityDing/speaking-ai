@@ -375,7 +375,7 @@ You MUST compute the final score by running Steps 1 → 2 → 3 → 4 in order:
 
 - **Step 1**: Enumerate EVERY structure type present in the transcript with at least one quoted example per type (scan all 10 types; do not stop at 2-3). Compute the **Range Band**.
 - **Step 2**: Count error-free sentences (T-units). Compute the **Accuracy Band**.
-- **Step 3**: Combine via Gap-Capped min: `final = max(min(Range Band, Accuracy Band), Range Band - 2)`. Apply short-sample adjustment if applicable. This is the FINAL SCORE.
+- **Step 3**: Combine by gap-dependent rule — gap=0: Range Band; gap=1: midpoint (Range+Accuracy)/2; gap≥2: Gap-Capped min `max(min(Range, Accuracy), Range - 2)`. Apply short-sample adjustment if applicable. This is the FINAL SCORE.
 - **Step 4**: Write summary wording aligned with the rubric descriptor of the Step 3 band. Does NOT change the score.
 
 **FORBIDDEN SHORTCUTS**:
@@ -385,7 +385,7 @@ You MUST compute the final score by running Steps 1 → 2 → 3 → 4 in order:
 - The Rubric Criteria are used ONLY in Step 4 to align the SUMMARY wording. They do NOT determine the score — the Step 3 computation does.
 
 **CRITICAL - Rubric Application**:
-The rubric defines bands by TWO INDEPENDENT dimensions that are CONJOINED (Range AND Accuracy). Your scoring MUST reflect this by computing each dimension as its own band, then combining via Gap-Capped min(). Use the provided Rubric Criteria as the canonical reference for band descriptors used in Step 4 feedback wording only.
+The rubric defines bands by TWO INDEPENDENT dimensions that are CONJOINED (Range AND Accuracy). Your scoring MUST reflect this by computing each dimension as its own band, then combining via the gap-dependent rule in Step 3 (midpoint when gap=1, Gap-Capped min when gap≥2). Use the provided Rubric Criteria as the canonical reference for band descriptors used in Step 4 feedback wording only.
 
 **Principle Priority Order (apply in this order before any scoring)**:
 Apply the following filters in sequence. If an utterance matches an earlier filter, do NOT re-evaluate it with a later principle.
@@ -466,7 +466,7 @@ Only high-impact errors that actually impede communication should drive the scor
    - Heavy use of coordination ("and... and... so...") is NORMAL spoken cohesion — does NOT reduce the type count.
 
 2. **Step 2 — Determine ACCURACY BAND from error-free sentence frequency**:
-   The IELTS GRA rubric describes each band as a CONJUNCTION of Range AND Accuracy (e.g., Band 7 requires BOTH "mix of short and complex structures" AND "errors rarely impede communication"). Therefore Accuracy is NOT a modifier on Range — it is an independent band in its own right. The two bands are combined via Gap-Capped min() in Step 3.
+   The IELTS GRA rubric describes each band as a CONJUNCTION of Range AND Accuracy (e.g., Band 7 requires BOTH "mix of short and complex structures" AND "errors rarely impede communication"). Therefore Accuracy is NOT a modifier on Range — it is an independent band in its own right. The two bands are combined via the gap-dependent rule in Step 3.
 
    First, estimate the proportion of grammatically error-free sentences. **CRITICAL: ignore spontaneous speech artifacts AND ignore low-impact errors that don't impede meaning** when counting — a sentence with only low-impact slips (article, preposition, 3rd person -s, minor SV agreement) still counts as error-free for scoring purposes.
 
@@ -492,26 +492,31 @@ Only high-impact errors that actually impede communication should drive the scor
    - Systematic but meaning-preserving errors (e.g., recurring 3rd-person -s drop where timeline is clear) are NOT high-impact.
    - The Band 9 accuracy tier requires **>90%** error-free AND only **non-systematic** minor errors — consistent with the rubric's "a few basic errors may persist" ceiling.
 
-3. **Step 3 — Combine: Final Band with Gap Cap**:
-   Start with `min(Range Band, Accuracy Band)` to encode the rubric's AND logic. BUT — apply a **Gap Cap** so the final band cannot be MORE THAN 2 BANDS below the Range Band:
+3. **Step 3 — Combine: Final Band with Gap-dependent rule**:
+   Apply the following based on the gap between Range Band and Accuracy Band:
 
    ```
-   tentative   = min(Range Band, Accuracy Band)
-   floor       = Range Band - 2
-   final_band  = max(tentative, floor)
+   gap = abs(Range Band - Accuracy Band)
+   if gap == 0:   final_band = Range Band
+   if gap == 1:   final_band = (Range Band + Accuracy Band) / 2     # half-band midpoint
+   if gap >= 2:   final_band = max(min(Range Band, Accuracy Band), Range Band - 2)  # Gap Cap
    ```
 
-   **Why the Gap Cap exists**: pure `min()` is too punitive when range has already been demonstrated. A student who produces 6+ complex structure types with poor accuracy HAS shown Band 8-9 range evidence; collapsing them to Band 5 ignores that evidence and diverges from how human examiners score. The cap keeps the final within 2 bands of Range while still letting Accuracy pull the score down meaningfully.
+   **Why gap=1 uses the midpoint**: IELTS 0.5 half-bands represent "between two bands" — when one dimension is at Band 8 and the other at Band 7, the student genuinely sits between, so 7.5 is the right answer (matches how human examiners apply holistic best-fit). Using `min()` here would discard the stronger dimension.
+
+   **Why gap ≥ 2 uses Gap-Capped min()**: pure `min()` is too punitive when range has already been demonstrated, but a large Range-Accuracy split also means the student does NOT sit cleanly between two bands. The cap keeps the final within 2 bands of Range while still letting weak Accuracy pull the score down.
 
    **Worked examples**:
-   - Range = 8.5, Accuracy = 8  → tentative = 8, floor = 6.5 → **final = 8**
-   - Range = 9, Accuracy = 6   → tentative = 6, floor = 7 → **final = 7** (cap protects demonstrated Band 9 range)
-   - Range = 9, Accuracy = 5   → tentative = 5, floor = 7 → **final = 7** (cap kicks in)
-   - Range = 8, Accuracy = 6   → tentative = 6, floor = 6 → **final = 6** (exactly 2-band gap, cap is tight but not active)
-   - Range = 6, Accuracy = 9   → tentative = 6, floor = 4 → **final = 6** (narrow range caps score; cap irrelevant in this direction)
-   - Range = 7, Accuracy = 7   → **final = 7**
+   - Range = 8, Accuracy = 7    → gap=1 → **final = 7.5**
+   - Range = 9, Accuracy = 8    → gap=1 → **final = 8.5**
+   - Range = 8.5, Accuracy = 8  → gap=0.5 → treat as gap=1 (non-integer gap) → **final = 8.25 → round to 8 or 8.5**; prefer **8** when Accuracy is the weaker side (conservative)
+   - Range = 8, Accuracy = 8    → gap=0 → **final = 8**
+   - Range = 9, Accuracy = 7    → gap=2 → min=7, floor=7 → **final = 7**
+   - Range = 9, Accuracy = 5    → gap=4 → min=5, floor=7 → **final = 7** (Gap Cap protects demonstrated Band 9 range)
+   - Range = 8, Accuracy = 6    → gap=2 → min=6, floor=6 → **final = 6**
+   - Range = 6, Accuracy = 9    → gap=3 → min=6, floor=4 → **final = 6** (narrow range caps score)
 
-   **One-sidedness note**: the Gap Cap only protects against Range being dragged down by weak Accuracy. It does NOT push Accuracy up when Range is narrow — a student with narrow range has NOT demonstrated the structures required for a higher band.
+   **One-sidedness note**: the Gap Cap only protects against Range being dragged down by weak Accuracy. It does NOT push Accuracy up when Range is narrow — a student with narrow range has NOT demonstrated the structures required for a higher band. The midpoint rule (gap=1) is symmetric, but narrow-Range cases rarely hit gap=1 because Accuracy cannot meaningfully exceed Range by 1 without the structures being there.
 
    After computing `final_band`, apply ONLY the following adjustment:
 
