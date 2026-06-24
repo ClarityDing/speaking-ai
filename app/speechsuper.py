@@ -345,6 +345,7 @@ def generate_speech_super_report_json(data):
         clarity_dist.get("Excellent", 0)
         + clarity_dist.get("Clear", 0)
         + clarity_dist.get("Noticeable Accent", 0)
+        + clarity_dist.get("Weak/Distorted", 0)
         + clarity_dist.get("Connected Speech", 0)
     )
     report_dict["metadata"]["clarity_intelligibility_pct"] = (
@@ -470,21 +471,21 @@ def run_speech_super_assessment(audio_file_path):
             "cmd": "start",
             "param": {
                 "app": {
+                    "timestamp": timestamp,
                     "userId": userId,
                     "applicationId": appKey,
-                    "timestamp": timestamp,
                     "sig": startSig,
                 },
                 "audio": {
-                    "audioType": "wav",
-                    "channel": 1,
                     "sampleBytes": 2,
+                    "audioType": "wav",
                     "sampleRate": 16000,
+                    "channel": 1,
                 },
                 "request": {
-                    "coreType": coreType,
-                    "model": "non_native",
                     "tokenId": "tokenId",
+                    "model": "non_native",
+                    "coreType": coreType,
                 },
             },
         },

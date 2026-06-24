@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speaking IELTS — Grading Tester</title>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --border: #e2e6ec;
+      --ink: #1f2733;
+      --muted: #6b7685;
+      --accent: #2f6fed;
+      --accent-soft: #eaf1ff;
+      --good: #1f9d57;
+      --warn: #c9881f;
+      --bad: #d24545;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, "Segoe UI", "PingFang HK", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 80px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    .sub { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 2px rgba(16,24,40,.04);
+    }
+    label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 6px; }
+    label:first-of-type { margin-top: 0; }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fff;
+      color: var(--ink);
+    }
+    textarea { resize: vertical; min-height: 64px; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 400; }
+    button {
+      margin-top: 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .row > div { flex: 1; min-width: 220px; }
+
+    /* Results */
+    #status { font-size: 14px; margin: 6px 0 0; }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px; margin-right: 8px;
+      border: 2px solid var(--accent-soft); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -2px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .overall {
+      display: flex; align-items: center; gap: 18px;
+      background: var(--accent-soft);
+      border-radius: 10px; padding: 16px 20px; margin-bottom: 18px;
+    }
+    .overall .big { font-size: 38px; font-weight: 700; color: var(--accent); line-height: 1; }
+    .overall .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .overall .cefr { font-size: 22px; font-weight: 600; }
+
+    table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    th { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+    .band { font-weight: 700; font-size: 16px; }
+
+    .crit { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 14px; overflow: hidden; }
+    .crit > .head { background: #fafbfc; padding: 12px 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+    .crit > .head .b { color: var(--accent); }
+    .crit > .body { padding: 4px 16px 14px; }
+    .crit .summary { font-size: 14px; color: var(--ink); margin: 10px 0 12px; }
+    .grp-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; margin: 12px 0 6px; }
+    .grp-title.s { color: var(--good); }
+    .grp-title.i { color: var(--warn); }
+    .item { font-size: 13.5px; margin: 0 0 8px; padding-left: 14px; position: relative; }
+    .item::before { content: "•"; position: absolute; left: 0; color: var(--muted); }
+    .item .q { display: block; color: var(--muted); font-style: italic; margin-top: 2px; }
+    .err { background: #fdecec; border: 1px solid #f3c2c2; color: var(--bad); border-radius: 8px; padding: 14px; font-size: 14px; white-space: pre-wrap; }
+    details { margin-top: 14px; }
+    details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+    pre { background: #0e1726; color: #d7e1f0; padding: 14px; border-radius: 8px; overflow: auto; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Speaking IELTS — Grading Tester</h1>
+    <div class="sub">揀 exercise、填 essay title 同 audio 檔名(已喺 <code>./audio/</code> 入面),撳 Grade 就得。唔使再改 code 或者 curl。</div>
+
+    <div class="card">
+      <label for="token">Authorization Bearer Token</label>
+      <input id="token" value="wwwclarityenglishcom" />
+
+      <div class="row">
+        <div>
+          <label for="exerciseID">Exercise ID</label>
+          <select id="exerciseID"><option value="">載入緊…</option></select>
+          <div class="hint" id="exHint">載入緊 exercise 清單…</div>
+        </div>
+        <div>
+          <label for="audioFileName">Audio file name</label>
+          <input id="audioFileName" placeholder="e.g. Q1_fluency_5.5_xxx" />
+          <div class="hint">喺 <code>./audio/</code> 入面嘅檔名,<code>.wav</code> 可省略。</div>
+        </div>
+      </div>
+
+      <label for="essayTitle">Essay title / Task prompt</label>
+      <textarea id="essayTitle" placeholder="Tell us about yourself. Here are some ideas."></textarea>
+
+      <button id="grade">Grade</button>
+      <p id="status"></p>
+    </div>
+
+    <div class="card" id="resultCard" style="display:none;">
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const CRIT_NAMES = {
+      TR: "Task Response",
+      FC: "Fluency & Coherence",
+      LR: "Lexical Resource",
+      GRA: "Grammatical Range & Accuracy",
+      PN: "Pronunciation",
+    };
+    const CRIT_ORDER = ["TR", "FC", "LR", "GRA", "PN"];
+
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    // Load exercise list into the dropdown
+    (async () => {
+      const sel = $("exerciseID");
+      try {
+        const res = await fetch("/api/exercises");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const list = await res.json();
+        sel.innerHTML =
+          `<option value="">— 揀一個 exercise —</option>` +
+          (list || [])
+            .map((e) => {
+              const t = e.taskType ? ` — ${esc(e.taskType)}` : "";
+              return `<option value="${esc(e.exerciseID)}">${esc(e.exerciseID)}${t}</option>`;
+            })
+            .join("");
+        $("exHint").textContent = `已載入 ${list.length} 個 exercise。`;
+      } catch (e) {
+        sel.innerHTML = `<option value="">(載入失敗)</option>`;
+        $("exHint").textContent = "載入 exercise 清單失敗:" + e.message;
+      }
+    })();
+
+    function orderedKeys(obj) {
+      const keys = Object.keys(obj || {});
+      const known = CRIT_ORDER.filter((k) => keys.includes(k));
+      const rest = keys.filter((k) => !CRIT_ORDER.includes(k));
+      return [...known, ...rest];
+    }
+
+    function renderResult(data) {
+      const card = $("resultCard");
+      const box = $("result");
+      card.style.display = "block";
+
+      if (data && data.error) {
+        box.innerHTML = `<div class="err">${esc(data.error)}</div>`;
+        return;
+      }
+
+      const scores = data.band_scores || {};
+      const fb = data.detailed_feedback || {};
+      let html = "";
+
+      html += `<div class="overall">
+        <div><div class="lbl">Overall IELTS</div><div class="big">${esc(data.IELTS_score ?? "—")}</div></div>
+        <div><div class="lbl">CEFR</div><div class="cefr">${esc(data.CEFR_level ?? "—")}</div></div>
+      </div>`;
+
+      // Band score table
+      const sKeys = orderedKeys(scores);
+      if (sKeys.length) {
+        html += `<table><thead><tr><th>Criterion</th><th>Band</th></tr></thead><tbody>`;
+        for (const k of sKeys) {
+          html += `<tr><td>${esc(CRIT_NAMES[k] || k)} <span style="color:var(--muted)">(${esc(k)})</span></td><td class="band">${esc(scores[k])}</td></tr>`;
+        }
+        html += `</tbody></table>`;
+      }
+
+      // Per-criterion feedback
+      for (const k of orderedKeys(fb)) {
+        const f = fb[k] || {};
+        if (f && f.error) {
+          html += `<div class="crit"><div class="head"><span>${esc(CRIT_NAMES[k] || k)}</span></div>
+            <div class="body"><div class="err">${esc(f.error)}</div></div></div>`;
+          continue;
+        }
+        html += `<div class="crit">
+          <div class="head"><span>${esc(CRIT_NAMES[k] || k)}</span>${
+            scores[k] != null ? `<span class="b">Band ${esc(scores[k])}</span>` : ""
+          }</div><div class="body">`;
+        if (f.summary) html += `<div class="summary">${esc(f.summary)}</div>`;
+        if (Array.isArray(f.strengths) && f.strengths.length) {
+          html += `<div class="grp-title s">Strengths</div>`;
+          for (const it of f.strengths) {
+            html += `<div class="item">${esc(it.point)}${
+              it.quote ? `<span class="q">“${esc(it.quote)}”</span>` : ""
+            }</div>`;
+          }
+        }
+        if (Array.isArray(f.improvements) && f.improvements.length) {
+          html += `<div class="grp-title i">Improvements</div>`;
+          for (const it of f.improvements) {
+            html += `<div class="item">${esc(it.point)}${
+              it.suggestion ? `<span class="q">${esc(it.suggestion)}</span>` : ""
+            }</div>`;
+          }
+        }
+        html += `</div></div>`;
+      }
+
+      html += `<details><summary>Raw JSON</summary><pre>${esc(JSON.stringify(data, null, 2))}</pre></details>`;
+      box.innerHTML = html;
+    }
+
+    $("grade").addEventListener("click", async () => {
+      const btn = $("grade");
+      const token = $("token").value.trim();
+      const exerciseID = $("exerciseID").value.trim();
+      const essayTitle = $("essayTitle").value.trim();
+      const audioFileName = $("audioFileName").value.trim();
+
+      if (!exerciseID || !essayTitle || !audioFileName) {
+        $("status").innerHTML = `<span style="color:var(--bad)">請填齊 Exercise ID、Essay title 同 Audio file name。</span>`;
+        return;
+      }
+
+      btn.disabled = true;
+      $("status").innerHTML = `<span class="spinner"></span>評緊分… (Gemini 多項評估,可能要 30秒+)`;
+      $("resultCard").style.display = "none";
+
+      try {
+        const res = await fetch("/api/speaking-ielts-api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ exerciseID, essayTitle, audioFileName }),
+        });
+        const data = await res.json().catch(() => ({ error: `HTTP ${res.status} — 無法解析回應` }));
+        if (!res.ok && !data.error) data.error = `HTTP ${res.status}`;
+        $("status").innerHTML = res.ok
+          ? `<span style="color:var(--good)">完成 ✓</span>`
+          : `<span style="color:var(--bad)">失敗 (HTTP ${res.status})</span>`;
+        renderResult(data);
+      } catch (e) {
+        $("status").innerHTML = `<span style="color:var(--bad)">請求失敗:${esc(e.message)}</span>`;
+        renderResult({ error: String(e) });
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

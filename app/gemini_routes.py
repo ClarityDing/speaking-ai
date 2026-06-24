@@ -31,6 +31,20 @@ from schemas import GradingResult
 gemini_bp = Blueprint("gemini_main", __name__)
 
 
+@gemini_bp.route("/exercises", methods=["GET"])
+def list_exercises():
+    all_exercises = load_json_file("criteria.json") or []
+    items = [
+        {
+            "exerciseID": ex.get("exerciseID"),
+            "taskType": ex.get("taskType", ""),
+        }
+        for ex in all_exercises
+        if ex.get("exerciseID")
+    ]
+    return jsonify(items)
+
+
 async def _call_gemini_api_async(criterion, prompt_template, semaphore, **kwargs):
     max_retries = 5
     base_sleep_time = 2
@@ -266,8 +280,19 @@ async def evaluate_gemini():
     data = request.get_json()
     exercise_id = data.get("exerciseID")
     essay_title = data.get("essayTitle")
+    audio_file_name = data.get("audioFileName")
 
-    audio_path = "./audio/" + "Q3_fluency_8_david@comasjapan.com" + ".wav"
+    if not audio_file_name:
+        return (
+            jsonify({"error": "Missing 'audioFileName' in the request."}),
+            HTTPStatus.BAD_REQUEST,
+        )
+
+    if not audio_file_name.lower().endswith(".wav"):
+        audio_file_name += ".wav"
+
+    audio_path = "./audio/" + audio_file_name
+    current_app.logger.info(f"Audio file to assess: {audio_path}")
     # speech_result = run_azure_assessment(audio_path)
     speech_result = run_speech_super_assessment(audio_path)
 

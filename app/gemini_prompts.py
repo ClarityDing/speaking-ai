@@ -158,10 +158,11 @@ Intonation (pitch variation) and rhythm (chunking / stress-timing) cannot be mea
      Note: 'clarity_high_quality_pct' is a stricter measure (Excellent + Clear only) — use it ONLY as the Band 8 vs Band 9 tiebreaker at the top end. The intelligibility thresholds are deliberately lenient because "Noticeable Accent" phonemes (still intelligible per rubric Band 8: "Accent has minimal effect on intelligibility") ARE counted in 'clarity_intelligibility_pct'.
 
    - **Step 2 — Phoneme error penalty** (apply only when errors are clearly frequent enough to threaten intelligibility — occasional mispronunciations should NOT lower the score):
-     - <12% → no penalty
-     - 12–18% → -0.5
-     - 18–25% → -1.0
-     - >25% → -1.5
+     - <10% → no penalty
+     - 10-15% → -0.5
+     - 15-20% → -1
+     - 20–25% → -1.5
+     - >25% → -2
 
    - **Step 3 — Stress + Linking penalties (CUMULATIVE)** (only trigger when clearly weak; small slips are normal at all bands):
      - Stress Penalty (use 'mismatch_rate' from 'stress_alignment_summary'):
@@ -170,8 +171,12 @@ Intonation (pitch variation) and rhythm (chunking / stress-timing) cannot be mea
        - >20%:  -1.0
 
      - Linking Penalty (use 'linking_rate'):
-       - ≥50%:  no penalty
-       - <50%:  -0.5
+       - ≥75%:  no penalty
+       - 60-74%:  -0.5
+       - 45-59%:  -1
+       - 30-44%:  -1.5 
+       - <30%:  -2
+       
      *(Example: Ceiling Band 8 + stress mismatch_rate 15% [-0.5] + linking 40% [-0.5] → calculated ceiling Band 7).*
 
    - **Step 3b — Conservative adjustment**: if no penalties were applied in Steps 2-3, apply a -0.5 if the sample is very short, to ensure the score remains conservative.
