@@ -435,6 +435,35 @@ def generate_speech_super_report_json(data):
         ceiling = 4
     report_dict["metadata"]["phoneme_ceiling_band"] = ceiling
 
+    # 5. PN band anchor from intelligibility.
+    #    band ≈ 0.19 * clarity_intelligibility_pct − 9.1  (clamped 1.0-9.0).
+    #    This line is deliberately tuned so the ACHIEVABLE intel range (~90-93%
+    #    for strong non-native speakers) can reach Band 8-9 — intel rarely
+    #    exceeds 93%, so the older steeper line (0.208*i−11.94) capped PN at ~7.5.
+    #    It is intentionally a bit generous at the low end; the cross-criteria
+    #    clamp in gemini_routes (_run_grading_process) GATES it — when the other
+    #    criteria are low (weak overall performance), PN gets pulled back down,
+    #    so a weak speaker with deceptively-decent phoneme intelligibility (e.g.
+    #    Q6_4.5: intel ~85% but examiner PN 3) is not over-scored. PROMPT_PN uses
+    #    this as the deterministic baseline (then may nudge ±0.5 with evidence).
+    #    Re-fit via pn_calibration_check.py if the intelligibility definition changes.
+    intel_pct = report_dict["metadata"]["clarity_intelligibility_pct"]
+    pn_anchor = max(1.0, min(9.0, round((0.19 * intel_pct - 9.1) * 2) / 2))
+    report_dict["metadata"]["pn_band_anchor"] = pn_anchor
+
+    # 6. Alignment-collapse guard. asr.eval forced-alignment can fail on an early
+    #    OOV word (e.g. a name): that word's span runs to the end of the audio and
+    #    every later word gets span -1 / score 0, producing a garbage PN. Flag it.
+    word_spans = data.get("words", [])
+    unaligned = sum(
+        1 for w in word_spans if w.get("span", {}).get("start", -1) == -1
+    )
+    unaligned_pct = (
+        round(unaligned / len(word_spans) * 100, 1) if word_spans else 0.0
+    )
+    report_dict["metadata"]["unaligned_word_pct"] = unaligned_pct
+    report_dict["metadata"]["alignment_collapsed"] = unaligned_pct > 30
+
     return report_dict
 
 

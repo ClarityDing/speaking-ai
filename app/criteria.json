@@ -9,7 +9,7 @@
         "cueCardContent" : "Dear Inline Training,\nI am writing to let you know how disappointed we were with the training event on Monday.  My team needs this software for their daily work, but they feel that the training did not include important information. Many important topics were not covered, and my employees still do not understand how to use the software correctly. We need to deal with this matter immediately. This training was very expensive, and we expect more. \nPlease contact me with a solution to this problem",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "Q4",
@@ -19,7 +19,7 @@
         "cueCardContent" : "",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "Q3",
@@ -30,7 +30,7 @@
         "cueCardContent" : "Dear Sir,\nI am writing to complain aboout the recent order. We bought 500 of your alarm clocks. Unfortunately, we only received 400. Also, we stated we wanted only back alarm clocks, but you sent a mixture of black and red. \nWe need to fix this issue before our hotel opens on the 1st of next month. If you cannot fix this, we expect a full refund.\nPlease contact me immediately. \nRegards,\nMaritime Hotel",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "C3",
@@ -41,7 +41,7 @@
         "cueCardContent" : "Dear Sukitup Power Tools,\nI am writing to complain about the industrial robotic vacuum cleaners we bought for our factory in Saratoga.\nAt first, we were excited, but since then we’ve had a large number of issues. The robotic vacuum cleaners frequently stop working, and don’t clean the floors as expected.\nOur production area must be clean, so we need to fix these problems immediately.\nYour immediate attention to this matter is highly appreciated, as it directly impacts our daily operations. Please contact us at once.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "C4",
@@ -51,7 +51,7 @@
         "cueCardContent" : "",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "C5",
@@ -62,7 +62,7 @@
         "cueCardContent" : "A: Globalization means we can now enjoy food grown all over the world at any time regardless of the season.\nB: It’s better for the environment to buy locally produced food and support local farmers.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "D3",
@@ -73,7 +73,7 @@
         "cueCardContent" : "Dear MyBlanket Inc.,\nI am writing about our recent order with your company. We requested 300 units of your cotton bed sheets, but unfortunately, we received only 250 units. Also, the color of the delivered items does not match our specific order; we requested only white sets, but there are blue sets included. As our hotel is opening on the first of the month, we need to fix this problem immediately. Please contact me as soon as possible.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "E3",
@@ -84,7 +84,7 @@
         "cueCardContent" : "Dear Level One Conference Centre,\n I am writing about our recent room booking at your conference centre. In your email, there is an error in the reservation details. We booked a larger conference room for 30 people, but unfortunately, we have been given a smaller room that can only hold half of our group.\n Our conference is taking place tomorrow, and we must deal with this issue now. Your help is essential for the success of our conference.  Please contact me immediately.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
         {
         "exerciseID": "D5",
@@ -95,7 +95,7 @@
         "cueCardContent" : "A: Employees should not be allowed to deal with private emails and phone calls at work.\nB:  Employees should be given the freedom to phone and email privately during working hours.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
         {
         "exerciseID": "B5",
@@ -106,7 +106,7 @@
         "cueCardContent" : "A: Attending unversity is not only about studying; it's even more about developing your personality and character. \nB: To be an excellent student, you just need to enjoy spending time with books.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "demo-0",
@@ -117,7 +117,7 @@
         "cueCardContent" : "A: Employing young staff to provide innovative ideas ensures the competitive advantage of a company.\nB: It’s the experience and know-how of older staff that make a company successful.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
         {
         "exerciseID": "Q3-demo",
@@ -128,7 +128,7 @@
         "cueCardContent" : "Dear Sir,\nI am writing to complain about the recent order. We bought 500 of your alarm clocks. Unfortunately, we only received 400. Also, we stated we wanted only black alarm clocks, but your sent a mixture of black and red. We need to fix this issue before our hotel opens on the 1st of next month. If you cannot fix this, we expect a full refund. Please contact me immediately. \nRegards, \nMaritime Hotel",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
         {
         "exerciseID": "Q5",
@@ -139,7 +139,7 @@
         "cueCardContent" : "A: Attending unversity is not only about studying; it's even more about developing your personality and character. \nB: To be an excellent student, you just need to enjoy spending time with books.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
     },
     {
         "exerciseID": "Q1",
@@ -149,7 +149,15 @@
         "taskType": "Speaking",
         "AudioLimited": 60,
         "promptTr": false
-
+    },  
+    {
+        "exerciseID": "E1",
+        "criteria": [
+            ],
+        "cueCardContent" : "- Name\n- Age\n- Family\n- Hobbies \n- Best friend \n- Favorite place \n- Breakfast",
+        "taskType": "Speaking",
+        "AudioLimited": 60,
+        "promptTr": false
     }, 
        {
         "exerciseID": "Q1-demo",
@@ -172,7 +180,7 @@
         "cueCardContent" : "Calendar:\nWeek 1 (Dates: 3rd – 8th)\nMonday 3rd: Bike ride with Meera at 10am.\nTuesday 4th: 6pm Swimming.\nWednesday 5th: 7pm Theatre practice.\nThursday 6th: 6pm Swimming.\nFriday 7th: Party night!.\nSaturday 8th: No events scheduled.\n\n\nWeek 2 (Dates: 10th – 15th)\nMonday 10th: No events scheduled.\nTuesday 11th: 7pm Spanish.\nWednesday 12th: 6pm Swimming.\nThursday 13th: 6pm Movie with Tom and Dimitra.\nFriday 14th: 7pm Sue’s birthday.\nSaturday 15th: 10am Train to Leeds.\n\n\nWeek 3 (Dates: 17th – 22th)\nMonday 17th: No events scheduled.\nTuesday 18th: No Spanish today.\nWednesday 19th: 6pm Swimming.\nThursday 20th: 7pm Theatre practice.\nFriday 21st: 6pm Swimming.\nSaturday 22nd: 2pm Swimming competition.",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
 
     },    
     {
@@ -185,7 +193,7 @@
         "cueCardContent" : "Calendar:\nWeek 1 \nMonday 3rd: 9:00am – Meet Sally for a walk in the forest\nTuesday 4th: 9:30am – Doctor’s appointment\nThursday 6th: 10:00am – Swimming\nFriday 7th: Movie\nSaturday 8th: Pick up grandkids, Go to the zoo\n\n\nWeek 2 (Dates: 10th – 15th)\nMonday 10th: 5:00pm – Dance class\nTuesday 11th: 1:00pm – Lunch with Hasnah\nWednesday 12th: 5:00pm – Book club.\nThursday 13th: 10:00am – Swimming \nFriday 14th: Take car to the garage for repairs\nSaturday 15th: Shopping trip\n\n\nWeek 3 (Dates: 17th – 22th)\nMonday 17th: 5:00pm – Dance class\nTuesday 18th: Daniel’s 30th birthday\nWednesday 19th: 7:00pm – Movie\nThursday 20th: 10:00am – Swimming\nFriday 21st: 2:00pm – Coffee with Carla\nSaturday 22nd: 7:00pm – Folk music concert",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
 
     },
     {
@@ -198,7 +206,7 @@
         "cueCardContent" : "Calendar:\nWeek 1 \nMonday 3rd: 7:00pm – Dance class\nTuesday 4th: 3:00pm – Staff meeting\nThursday 5th: Lunch break – Driving lesson\nFriday 7th: 6:00pm – Dinner with the girls\nSaturday 8th: 5:00pm – Babysitting for Klara\nSunday 9th: Lunch with Mum and Dad\n\n\nWeek 2 (Dates: 10th – 15th)\nMonday 10th: 9:00am–4:00pm – Training course\nTuesday 11th: Work – no training\nWednesday 12th: 9:00am–4:00pm – Training course\nThursday 13th: 10:00am – Swimming \nFriday 14th: 9:00am–12:00pm – Training course, Party night\nSaturday 15th: 9:00am – Driving lesson \n Sunday 16th: 11:00am – Visit Aunt Jane with Mum and Dad\n\n\nWeek 3 (Dates: 17th – 22th)\nMonday 17th: 7:00pm – Dance class\nTuesday 18th: Team building event (all day)\nWednesday 19th: Aisha’s birthday – get present\nThursday 20th: 10:00am – Swimming\nFriday 21st: 6:30pm – Cinema with Camila\nSaturday 22nd: 7:00pm – Dancing\n Sunday 23rd: Lunch with Mum and Dad",
         "taskType": "Speaking",
         "AudioLimited": 60,
-        "promptTr": true
+        "promptTr": false
 
     },
     {

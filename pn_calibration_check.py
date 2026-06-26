@@ -11,8 +11,12 @@ import json
 import os
 import re
 import glob
+import sys
 
-AUDIO_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "audio")
+ROOT = os.path.dirname(os.path.abspath(__file__))
+AUDIO_DIR = os.path.join(ROOT, "audio")
+sys.path.insert(0, os.path.join(ROOT, "app"))
+from speechsuper import generate_speech_super_report_json  # noqa: E402
 
 
 def _last_num(line):
@@ -55,24 +59,20 @@ def collect():
             continue
         secs = parse_txt(txt)
         r = json.load(open(rawp))["result"]
-        metap = base + ".json"
-        m = json.load(open(metap))["metadata"] if os.path.exists(metap) else {}
-        words = r.get("words", [])
-        neg = sum(1 for w in words if w.get("span", {}).get("start", -1) == -1)
-        collapse = bool(words) and neg / len(words) > 0.3
+        # Regenerate the report fresh so anchor/intel always reflect live code.
+        m = generate_speech_super_report_json(r)["metadata"]
         rows.append(
             {
                 "name": os.path.basename(base)[:24],
                 "examPN": secs["exam"],
+                "anchor": m.get("pn_band_anchor"),
                 "sysUnmod": secs["unmod"],
                 "sysBoss": secs["boss"],
                 "speed": r.get("speed"),
-                "rawPron": r.get("pronunciation"),
                 "intel": m.get("clarity_intelligibility_pct"),
                 "miss": m.get("phoneme_missing_rate"),
-                "inc": m.get("phoneme_incorrect_rate"),
                 "link": m.get("linking_rate"),
-                "collapse": "COLLAPSE" if collapse else "",
+                "collapse": "COLLAPSE" if m.get("alignment_collapsed") else "",
             }
         )
     return rows
@@ -93,8 +93,8 @@ def pearson(xs, ys):
 
 def main():
     rows = collect()
-    cols = ["name", "examPN", "sysUnmod", "sysBoss", "speed", "rawPron",
-            "intel", "miss", "inc", "link", "collapse"]
+    cols = ["name", "examPN", "anchor", "sysUnmod", "sysBoss", "speed",
+            "intel", "miss", "link", "collapse"]
     print(" | ".join((f"{c:24}" if c == "name" else f"{c:>9}") for c in cols))
     for row in sorted(rows, key=lambda r: (r["examPN"] is None, r["examPN"] or 0)):
         print(" | ".join(
@@ -103,18 +103,18 @@ def main():
     valid = [r for r in rows if not r["collapse"]]
     ex = [r["examPN"] for r in valid]
     print(f"\n=== correlation vs examiner PN (n={len(valid)}, collapsed excluded) ===")
-    for label, key in [("speed", "speed"), ("intel", "intel"),
-                       ("rawPron", "rawPron"), ("sysUnmod", "sysUnmod"),
+    for label, key in [("anchor", "anchor"), ("intel", "intel"),
+                       ("speed", "speed"), ("sysUnmod", "sysUnmod"),
                        ("sysBoss", "sysBoss")]:
         print(f"  {label:9} vs examiner: {pearson([r[key] for r in valid], ex)}")
 
-    print("\n=== bias / MAE (system - examiner) ===")
-    for key in ["sysUnmod", "sysBoss"]:
+    print("\n=== bias / MAE vs examiner ===")
+    for key in ["anchor", "sysUnmod", "sysBoss"]:
         errs = [r[key] - r["examPN"] for r in valid
                 if r[key] is not None and r["examPN"] is not None]
         if errs:
             mae = sum(abs(e) for e in errs) / len(errs)
-            print(f"  {key}: MAE={mae:.2f}  bias={sum(errs)/len(errs):+.2f}  n={len(errs)}")
+            print(f"  {key:9}: MAE={mae:.2f}  bias={sum(errs)/len(errs):+.2f}  n={len(errs)}")
 
 
 if __name__ == "__main__":

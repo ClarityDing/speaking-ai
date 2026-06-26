@@ -260,13 +260,61 @@ async def _run_grading_process(
         "detailed_feedback": {},
     }
 
-    scores = []
-
     for crit, score, feedback in results:
         final_output["band_scores"][crit] = score
         final_output["detailed_feedback"][crit] = feedback
-        scores.append(score)
 
+    # Cross-criteria consistency clamp. Examiners keep FC/LR/GRA/PN within
+    # ~1 bands of each other (general-proficiency "halo" effect); a single
+    # criterion that diverges much further is almost always a mis-score. Pull
+    # any of the four that sits more than CLAMP_TH from the median of the other
+    # three back to that boundary, so no one criterion is a lone outlier. TR is
+    # EXCLUDED (task response can legitimately diverge from the language skills).
+    CLAMP_TH = 1
+    core = [
+        c
+        for c in ("FC", "LR", "GRA", "PN")
+        if final_output["band_scores"].get(c) is not None
+    ]
+    if len(core) == 4:
+        raw = {c: final_output["band_scores"][c] for c in core}
+        for c in core:
+            median_others = sorted(raw[o] for o in core if o != c)[1]
+            clamped = (
+                round(
+                    max(median_others - CLAMP_TH, min(median_others + CLAMP_TH, raw[c]))
+                    * 2
+                )
+                / 2
+            )
+            if clamped != raw[c]:
+                current_app.logger.info(
+                    f"Consistency clamp: {c} {raw[c]} -> {clamped} "
+                    f"(median of other criteria = {median_others})"
+                )
+                final_output["band_scores"][c] = clamped
+
+    # Low-outlier pull-up. Examiners keep the four language criteria close
+    # (spread typically <=1); a single criterion scored well below the others
+    # is almost always an under-rate (esp. LR/PN). Raise any of FC/LR/GRA/PN
+    # that sits more than FLOOR_GAP below the HIGHEST of the four up to
+    # (highest - FLOOR_GAP). Only raises, never lowers. Runs AFTER the median
+    # clamp (which has already pulled any lone HIGH outlier down toward the
+    # consensus, so 'highest' is not itself a spurious outlier). TR excluded.
+    FLOOR_GAP = 1
+    if len(core) == 4:
+        highest = max(final_output["band_scores"][c] for c in core)
+        floor = highest - FLOOR_GAP
+        for c in core:
+            if final_output["band_scores"][c] < floor:
+                old = final_output["band_scores"][c]
+                current_app.logger.info(
+                    f"Low-outlier pull-up: {c} {old} -> {floor} "
+                    f"(highest of the four = {highest})"
+                )
+                final_output["band_scores"][c] = floor
+
+    scores = list(final_output["band_scores"].values())
     overall_score = calculate_overall_band(scores)
     final_output["IELTS_score"] = str(overall_score)
     final_output["CEFR_level"] = ielts_to_cefr(overall_score)
