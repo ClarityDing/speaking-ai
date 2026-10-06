@@ -540,6 +540,28 @@ def run_speech_super_assessment(audio_file_path):
         with open(file_name_2, "w", encoding="utf-8") as f:
             json.dump(result_data, f, ensure_ascii=False, indent=4)
 
+        # Alignment failure: if SpeechSuper could not align ANY word (span
+        # start/end == -1), every pronunciation/fluency signal is unreliable.
+        # For fairness, reject the recording instead of grading it with
+        # garbage data. Files above are still saved for debugging.
+        words = result_data["result"].get("words", [])
+        unaligned = [
+            w.get("word")
+            for w in words
+            if w.get("span", {}).get("start", -1) == -1
+            or w.get("span", {}).get("end", -1) == -1
+        ]
+        if unaligned:
+            unaligned_pct = round(len(unaligned) / len(words) * 100, 1)
+            print(
+                f"SpeechSuper alignment failed for {len(unaligned)}/{len(words)} "
+                f"word(s) ({unaligned_pct}%) in {audio_file_path}"
+            )
+            return {
+                "error": f"SpeechSuper api error: {unaligned_pct}% of words "
+                f"could not be aligned with the audio"
+            }
+
         return report_dict
 
     except Exception as e:

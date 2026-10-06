@@ -284,37 +284,25 @@ async def _run_grading_process(
                 )
                 final_output["band_scores"][c] = floor
 
-    # GA (TR) consistency adjustment. TR is not part of the core-4's own
-    # mutual clamp above (it can legitimately diverge from the language
-    # skills), but the boss wants GA itself pulled toward the core-4
-    # consensus the same way PN/LR are pulled toward each other. Reference
-    # it against the (already-clamped) core-4 median/highest, using the same
-    # thresholds, without feeding TR back into the core-4's own computation.
+    # GA (TR) consistency cap — DOWNWARD ONLY. GA measures task achievement
+    # (extent, relevance, development), which strong language skills do not
+    # guarantee: a short, under-developed answer from a good speaker must keep
+    # a low GA, so GA is never pulled UP toward the core-4 (no up-clamp, no
+    # floor). But a weak speaker is unlikely to achieve a GA far above their
+    # language level, so cap GA at (core-4 median + CLAMP_TH). TR is not fed
+    # back into the core-4's own computation.
     if len(core) == 4 and final_output["band_scores"].get("TR") is not None:
         core_sorted = sorted(final_output["band_scores"][c] for c in core)
         core_median = (core_sorted[1] + core_sorted[2]) / 2
-        core_highest = core_sorted[-1]
         tr_raw = final_output["band_scores"]["TR"]
 
-        tr_clamped = (
-            round(max(core_median - CLAMP_TH, min(core_median + CLAMP_TH, tr_raw)) * 2)
-            / 2
-        )
-        if tr_clamped != tr_raw:
+        tr_cap = round((core_median + CLAMP_TH) * 2) / 2
+        if tr_raw > tr_cap:
             current_app.logger.info(
-                f"Consistency clamp: TR {tr_raw} -> {tr_clamped} "
+                f"Consistency cap: TR {tr_raw} -> {tr_cap} "
                 f"(median of core criteria = {core_median})"
             )
-            final_output["band_scores"]["TR"] = tr_clamped
-
-        tr_floor = core_highest - FLOOR_GAP
-        if final_output["band_scores"]["TR"] < tr_floor:
-            old = final_output["band_scores"]["TR"]
-            current_app.logger.info(
-                f"Low-outlier pull-up: TR {old} -> {tr_floor} "
-                f"(highest of core criteria = {core_highest})"
-            )
-            final_output["band_scores"]["TR"] = tr_floor
+            final_output["band_scores"]["TR"] = tr_cap
 
     # Overall IELTS band is the average of the four language criteria only.
     # GA (TR) is scored and shown separately but does not feed the overall.
