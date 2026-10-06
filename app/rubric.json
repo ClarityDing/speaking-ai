@@ -24,15 +24,15 @@
     "0": "Should only be used where a candidate did not attend or attempt the question in any way, used a language other than English throughout, or where there is proof that a candidate’s answer has been totally memorised."
     },
   "TR": {
-    "9": "Fully satisfies all task requirements with complete, relevant, and well-developed content. The response demonstrates full understanding of the task, a clear focus, and exceptional control of content organisation and support. Any lapses are extremely rare.",
-    "8": "Fully addresses all parts of the task appropriately and sufficiently. Content is relevant, well-selected, and clearly organised. Main ideas are developed and well-supported, with only occasional minor omissions or lapses.",
-    "7": "Addresses all key parts of the task clearly and appropriately. Content is relevant and accurate, though some aspects could be more fully extended or precisely supported. The overall purpose and focus are clear, with occasional loss of detail or precision",
-    "6": "Addresses the main requirements of the task adequately, though coverage or development may be uneven. Content is generally relevant but sometimes lacks clarity, balance, or depth of support. Minor irrelevancies or inaccuracies may occur.",
-    "5": "Attempts to address the task but with incomplete or limited coverage. Some ideas or details are missing, underdeveloped, or occasionally irrelevant. The overall purpose is sometimes unclear or inconsistent.",
-    "4": "A minimal or partly misinterpreted response to the task. Key information or ideas are missing, repetitive, or unclear. Purpose or position is difficult to identify, and coverage is inadequate.",
-    "3": "The response does not adequately address the task. There is little relevant or developed content, and misunderstanding of the task or prompt may be evident.",
-    "2": "Content shows minimal connection to the task, with only isolated relevant ideas and no development.",
-    "1": "No meaningful response to the task; the content is wholly unrelated or copied from the prompt.",
+    "9": "Handles communication on a full range of topics, including unfamiliar and abstract ones. Produces extended discourse that is coherent and effortless to follow. Contributions are fully relevant to the task and varied.",
+    "8": "Handles communication on a wide range of topics, including unfamiliar and abstract ones. Produces extended discourse that is coherent and easy to follow. Contributions are relevant to the task and varied.",
+    "7": "Handles communication on a range of familiar and unfamiliar topics. Produces extended discourse that is generally coherent. Contributions are relevant to the task and there is a clear organisation of ideas.",
+    "6": "Handles communication on familiar topics. Organises extended discourse but occasionally produces utterances that lack coherence. Contributions are relevant to the task and there is very little repetition.",
+    "5": "Handles communication in everyday situations. Produces responses which are extended beyond short phrases and uses basic cohesive devices. Contributions are mostly relevant to the task, despite some repetition.",
+    "4": "Conveys basic meaning in everyday situations. Produces mostly short utterances. Contributions address the task at a basic level, but often include digression or repetition.",
+    "3": "Conveys basic meaning in very familiar everyday situations. Produces utterances which tend to be very short – words or phrases. Repeats information or digresses from the task.",
+    "2": "Has difficulty conveying basic meaning even in very familiar everyday situations. Responses are limited to short phrases or isolated words. Contributions are often not relevant to the task.",
+    "1": "Cannot convey even the most basic meaning. Responses are limited to a few, unintelligible words or sounds.",
     "0": "Should only be used where a candidate did not attend or attempt the question in any way, used a language other than English throughout, or where there is proof that a candidate’s answer has been totally memorised."
   },
   "LR": {

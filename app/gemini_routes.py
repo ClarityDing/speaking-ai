@@ -142,33 +142,6 @@ async def _run_grading_process(
     if not target_exercise:
         return {"error": f"Exercise ID '{exercise_id}' not found in criteria.json."}
 
-    # Load learning objectives based on task type
-    task_type = target_exercise.get("taskType", "Speaking")
-
-    lo_data = load_json_file("learning_objective_ielts.json")
-
-    if lo_data is None:
-        current_app.logger.error(
-            "Failed to load learning_objective_ielts.json. Check if file exists or is valid JSON."
-        )
-        lo_data = {}
-
-    general_lo_list = lo_data.get(task_type, {}).get("learningObjective", [])
-
-    exercise_lo_list = target_exercise.get("criteria", [])
-
-    report_parts = []
-
-    if general_lo_list:
-        report_parts.extend([f"- {obj}" for obj in general_lo_list])
-
-    if exercise_lo_list:
-        if report_parts:
-            report_parts.append("")
-        report_parts.extend([f"- {obj}" for obj in exercise_lo_list])
-
-    learning_objectives_str = "\n".join(report_parts)
-
     # Add graph description to the prompt
     task_prompt = essay_title
     if target_exercise.get("cueCardContent"):
@@ -223,8 +196,6 @@ async def _run_grading_process(
                 str(audio_duration) if audio_duration else "not specified"
             ),
         }
-        if criterion == "TR":
-            base_kwargs["LEARNING_OBJECTIVES"] = learning_objectives_str
 
         task = asyncio.create_task(
             _call_gemini_api_async(
@@ -268,8 +239,7 @@ async def _run_grading_process(
     # ~1 bands of each other (general-proficiency "halo" effect); a single
     # criterion that diverges much further is almost always a mis-score. Pull
     # any of the four that sits more than CLAMP_TH from the median of the other
-    # three back to that boundary, so no one criterion is a lone outlier. TR is
-    # EXCLUDED (task response can legitimately diverge from the language skills).
+    # three back to that boundary, so no one criterion is a lone outlier.
     CLAMP_TH = 1
     core = [
         c
@@ -300,7 +270,7 @@ async def _run_grading_process(
     # that sits more than FLOOR_GAP below the HIGHEST of the four up to
     # (highest - FLOOR_GAP). Only raises, never lowers. Runs AFTER the median
     # clamp (which has already pulled any lone HIGH outlier down toward the
-    # consensus, so 'highest' is not itself a spurious outlier). TR excluded.
+    # consensus, so 'highest' is not itself a spurious outlier).
     FLOOR_GAP = 1
     if len(core) == 4:
         highest = max(final_output["band_scores"][c] for c in core)
@@ -314,7 +284,45 @@ async def _run_grading_process(
                 )
                 final_output["band_scores"][c] = floor
 
-    scores = list(final_output["band_scores"].values())
+    # GA (TR) consistency adjustment. TR is not part of the core-4's own
+    # mutual clamp above (it can legitimately diverge from the language
+    # skills), but the boss wants GA itself pulled toward the core-4
+    # consensus the same way PN/LR are pulled toward each other. Reference
+    # it against the (already-clamped) core-4 median/highest, using the same
+    # thresholds, without feeding TR back into the core-4's own computation.
+    if len(core) == 4 and final_output["band_scores"].get("TR") is not None:
+        core_sorted = sorted(final_output["band_scores"][c] for c in core)
+        core_median = (core_sorted[1] + core_sorted[2]) / 2
+        core_highest = core_sorted[-1]
+        tr_raw = final_output["band_scores"]["TR"]
+
+        tr_clamped = (
+            round(max(core_median - CLAMP_TH, min(core_median + CLAMP_TH, tr_raw)) * 2)
+            / 2
+        )
+        if tr_clamped != tr_raw:
+            current_app.logger.info(
+                f"Consistency clamp: TR {tr_raw} -> {tr_clamped} "
+                f"(median of core criteria = {core_median})"
+            )
+            final_output["band_scores"]["TR"] = tr_clamped
+
+        tr_floor = core_highest - FLOOR_GAP
+        if final_output["band_scores"]["TR"] < tr_floor:
+            old = final_output["band_scores"]["TR"]
+            current_app.logger.info(
+                f"Low-outlier pull-up: TR {old} -> {tr_floor} "
+                f"(highest of core criteria = {core_highest})"
+            )
+            final_output["band_scores"]["TR"] = tr_floor
+
+    # Overall IELTS band is the average of the four language criteria only.
+    # GA (TR) is scored and shown separately but does not feed the overall.
+    scores = [
+        final_output["band_scores"][c]
+        for c in core
+        if final_output["band_scores"].get(c) is not None
+    ]
     overall_score = calculate_overall_band(scores)
     final_output["IELTS_score"] = str(overall_score)
     final_output["CEFR_level"] = ielts_to_cefr(overall_score)

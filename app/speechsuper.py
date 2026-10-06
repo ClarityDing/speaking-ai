@@ -455,12 +455,8 @@ def generate_speech_super_report_json(data):
     #    OOV word (e.g. a name): that word's span runs to the end of the audio and
     #    every later word gets span -1 / score 0, producing a garbage PN. Flag it.
     word_spans = data.get("words", [])
-    unaligned = sum(
-        1 for w in word_spans if w.get("span", {}).get("start", -1) == -1
-    )
-    unaligned_pct = (
-        round(unaligned / len(word_spans) * 100, 1) if word_spans else 0.0
-    )
+    unaligned = sum(1 for w in word_spans if w.get("span", {}).get("start", -1) == -1)
+    unaligned_pct = round(unaligned / len(word_spans) * 100, 1) if word_spans else 0.0
     report_dict["metadata"]["unaligned_word_pct"] = unaligned_pct
     report_dict["metadata"]["alignment_collapsed"] = unaligned_pct > 30
 
@@ -515,6 +511,7 @@ def run_speech_super_assessment(audio_file_path):
                     "tokenId": "tokenId",
                     "model": "non_native",
                     "coreType": coreType,
+                    # "robust_mode": 1,
                 },
             },
         },
