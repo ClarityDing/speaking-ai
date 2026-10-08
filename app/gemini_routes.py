@@ -182,6 +182,11 @@ async def _run_grading_process(
     # Load word count target from criteria.json
     audio_limited = target_exercise.get("AudioLimited")
 
+    # Exercise requirements are given to GA only, for feedback (not scoring).
+    exercise_criteria = "\n".join(
+        f"- {c}" for c in target_exercise.get("criteria", [])
+    ) or "not specified"
+
     tasks = []
     for criterion in criteria_order:
         base_kwargs = {
@@ -195,6 +200,7 @@ async def _run_grading_process(
             "AUDIO_DURATION": (
                 str(audio_duration) if audio_duration else "not specified"
             ),
+            "EXERCISE_CRITERIA": exercise_criteria,
         }
 
         task = asyncio.create_task(

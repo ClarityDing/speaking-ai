@@ -511,7 +511,7 @@ def run_speech_super_assessment(audio_file_path):
                     "tokenId": "tokenId",
                     "model": "non_native",
                     "coreType": coreType,
-                    # "robust_mode": 1,
+                    "robust_mode": 1,
                 },
             },
         },

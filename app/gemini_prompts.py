@@ -287,7 +287,10 @@ For each strength:
 For each improvement:
 - 'point': Improvement area, written objectively (e.g., 'Ideas could be organised more clearly.'). A communicated-meaning, extent, or relevance/organisation weakness.
 - 'suggestion': Actionable suggestion
-  
+  - **Be specific to THIS task**: if the improvement is about developing the answer more or covering more of the topic, name 1-2 concrete aspects, ideas or examples from the Task that the candidate did not talk about, so they know WHAT to add. If the Exercise Requirements list a point the candidate did not cover, name that point FIRST — it matters more than adding further details (e.g. "You could also talk about other ways to get a good job, like work experience or skills, or give an example from your own life."). Never write only a general line like "discuss different aspects of the topic". This is feedback only — it is an exception to the SCOPE rule on sub-points and must NOT lower the score.
+
+**Consistency Rule - CRITICAL**: Strengths, improvements and the summary must not contradict each other. If an improvement asks the candidate to develop the answer more, add more ideas, or cover more of the topic, do NOT describe the answer as "long enough", "complete", "fully developed" or similar in the summary or strengths.
+
 **Quote Rules**:
 - Quote shortest evidence of TR point
 - Use '...' for context
@@ -298,6 +301,8 @@ Provide 1-3 items per list. Both lists must have minimum 1 object.
 
 ### Input Data
 Task: {TASK_PROMPT}
+Exercise Requirements (FEEDBACK ONLY — use them to choose what to suggest in improvements; do NOT use them to decide the score):
+{EXERCISE_CRITERIA}
 Response: {STUDENT_RESPONSE}
 Audio Duration: {AUDIO_DURATION}
 Rubric Criteria: {RUBRIC_CRITERIA}
