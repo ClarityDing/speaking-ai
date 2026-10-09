@@ -61,6 +61,7 @@ async def _call_gemini_api_async(criterion, prompt_template, semaphore, **kwargs
 
                 config = types.GenerateContentConfig(
                     temperature=0.0,
+                    top_p=0.0,
                     thinking_config=types.ThinkingConfig(thinking_budget=2048),
                     response_mime_type="application/json",
                     response_schema=GradingResult,
@@ -183,9 +184,22 @@ async def _run_grading_process(
     audio_limited = target_exercise.get("AudioLimited")
 
     # Exercise requirements are given to GA only, for feedback (not scoring).
-    exercise_criteria = "\n".join(
-        f"- {c}" for c in target_exercise.get("criteria", [])
-    ) or "not specified"
+    exercise_criteria = (
+        "\n".join(f"- {c}" for c in target_exercise.get("criteria", []))
+        or "not specified"
+    )
+
+    # GA only sees the transcript, so tell it how intelligible the speech was.
+    # Skip it when alignment collapsed — the figure is then meaningless.
+    try:
+        report_metadata = json.loads(generated_report)["metadata"]
+        intelligibility = (
+            None
+            if report_metadata.get("alignment_collapsed")
+            else report_metadata["clarity_intelligibility_pct"]
+        )
+    except (ValueError, KeyError, TypeError):
+        intelligibility = None
 
     tasks = []
     for criterion in criteria_order:
@@ -201,6 +215,9 @@ async def _run_grading_process(
                 str(audio_duration) if audio_duration else "not specified"
             ),
             "EXERCISE_CRITERIA": exercise_criteria,
+            "INTELLIGIBILITY": (
+                f"{intelligibility}%" if intelligibility is not None else "not reliable"
+            ),
         }
 
         task = asyncio.create_task(
@@ -309,6 +326,19 @@ async def _run_grading_process(
                 f"(median of core criteria = {core_median})"
             )
             final_output["band_scores"]["TR"] = tr_cap
+
+    # For a very good GA (8+), soften each improvement as an optional extra.
+    # Done in code, not the prompt, so it cannot sway the GA score itself.
+    tr_feedback = final_output["detailed_feedback"].get("TR")
+    if (final_output["band_scores"].get("TR") or 0) >= 8 and isinstance(
+        tr_feedback, dict
+    ):
+        for item in tr_feedback.get("improvements", []):
+            point = item.get("point", "")
+            if point and not point.startswith("This is a very good answer"):
+                item["point"] = (
+                    "This is a very good answer, but " + point[0].lower() + point[1:]
+                )
 
     # Overall IELTS band is the average of the four language criteria only.
     # GA (TR) is scored and shown separately but does not feed the overall.
