@@ -90,19 +90,23 @@ Weigh FLUENCY and COHERENCE together (roughly equal importance). The final FC ba
 
 **No Improvements Rule - CRITICAL**:
 If the performance is near perfect, provide ONE minor suggestion for even better flow.
+- If you find no real fluency or coherence problem, do NOT invent a weakness: do NOT ask the candidate to speak faster or pause less, and do NOT mention pronunciation or articulation. Give ONE light tip instead (e.g. "Keep practising speaking about less familiar topics so your speech stays this smooth.").
 
 For summary:
 - Write 1-2 sentences on overall flow/speed AND how well ideas are connected (second person, present tense). Cover both halves when relevant.
 
 For each strength:
 - 'point': A specific observation about EITHER fluency OR coherence. (e.g., "You speak at a steady speed that matches a high level." OR "You connect your ideas clearly with linking words.")
-- 'quote': A reference from the transcript or metadata.
-  - Transcript quote for coherence: (e.g., "...because it helps me relax, so...")
-  - Metadata reference for fluency: (e.g., "You had no long pauses in your speech." or "Your speed was 110 words per minute.")
+- 'quote': A short quote of the student's OWN words from 'full_transcript' (e.g., "...because it helps me relax, so...").
+  - Keep it SHORT: under 10 words, from one continuous phrase. Use '...' to cut the rest. Do NOT quote whole sentences.
+  - For a fluency strength, quote a stretch the student says smoothly.
+  - NEVER quote metadata or numbers, and never write a sentence about the data as the quote (e.g. NOT "You had no long pauses in your speech." / NOT "Your speed was 110 words per minute.").
+- Do NOT use numbers (speed, pause counts) or technical terms such as "unfilled pauses" or "words per minute" anywhere in the feedback.
 
 For each improvement:
 - 'point': A specific issue about EITHER fluency (pauses, slow speed) OR coherence (jumping between ideas, few linking words, very short disconnected statements). (e.g., "You sometimes pause in the middle of a phrase." OR "Your ideas sometimes jump without linking words.")
 - 'suggestion': One clear, actionable tip. (e.g., "Try to finish the phrase before pausing." OR "Use linking words like 'because' and 'for example' to connect your ideas.")
+  - For repetition or self-correction, suggest a FLUENCY strategy (e.g. "Think of your next idea before you start the sentence, so you do not need to repeat words."). Do NOT correct grammar or word choice (e.g. NOT "say 'their work' instead of 'her or his work'") — that belongs to Grammar and Vocabulary, not Fluency.
 
 ### Input Data
 Speech Assessment Report: {SPEECH_SUPER_REPORT}
