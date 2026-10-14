@@ -105,8 +105,10 @@ For each strength:
 
 For each improvement:
 - 'point': A specific issue about EITHER fluency (pauses, slow speed) OR coherence (jumping between ideas, few linking words, very short disconnected statements). (e.g., "You sometimes pause in the middle of a phrase." OR "Your ideas sometimes jump without linking words.")
-- 'suggestion': One clear, actionable tip. (e.g., "Try to finish the phrase before pausing." OR "Use linking words like 'because' and 'for example' to connect your ideas.")
-  - For repetition or self-correction, suggest a FLUENCY strategy (e.g. "Think of your next idea before you start the sentence, so you do not need to repeat words."). Do NOT correct grammar or word choice (e.g. NOT "say 'their work' instead of 'her or his work'") — that belongs to Grammar and Vocabulary, not Fluency.
+- 'suggestion': One clear, actionable tip. (e.g., "Use linking words like 'because' and 'for example' to connect your ideas.")
+  - Do NOT tell the candidate to plan or think through whole phrases or sentences before speaking (e.g. NOT "Think about the whole sentence before you start speaking" / NOT "Plan your sentences to avoid repeating words") — nobody can do that in real speech. Suggest PRACTICE instead.
+  - For hesitation or pauses in the middle of phrases, suggest something like: "You could practise answering this question again. Try to talk without stopping in the middle of phrases."
+  - For repetition or self-correction, suggest something like: "You could practise answering this question again. Try to use some different words and phrases." Vary the wording a little; you do not need to copy these examples exactly. Do NOT correct grammar or word choice (e.g. NOT "say 'their work' instead of 'her or his work'") — that belongs to Grammar and Vocabulary, not Fluency.
 
 ### Input Data
 Speech Assessment Report: {SPEECH_SUPER_REPORT}
