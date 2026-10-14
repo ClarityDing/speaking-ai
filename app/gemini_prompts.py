@@ -361,7 +361,9 @@ Score on the range of DISTINCT CONTENT WORDS actually used: rich / topic-specifi
 
 ### Output (Start response here)
 
-**SCOPE - CRITICAL**: You assess WORDS ONLY (vocabulary range, precision, paraphrasing, word formation, idioms). FORBIDDEN: sentence structure, paragraphing, grammar errors, preposition errors, task response feedback.
+**SCOPE - CRITICAL**: You assess WORDS ONLY (vocabulary range, precision, paraphrasing, word formation, idioms, collocations). FORBIDDEN: sentence structure, paragraphing, grammar errors, task response feedback.
+- Collocation errors ARE vocabulary, including a word that takes the wrong preposition (e.g. "influence about" → "influence on"). You may give feedback on these.
+- Verb forms and tenses are GRAMMAR, not vocabulary (e.g. "likes dance" → "likes dancing", "loves read" → "loves reading"). Do NOT give feedback on these.
 
 **JSON Format - CRITICAL**:
 - Use Simple Present tense: "You use..." not "You used..."
@@ -369,18 +371,31 @@ Score on the range of DISTINCT CONTENT WORDS actually used: rich / topic-specifi
 - Direct, encouraging tone: use "you/your"
 
 **No Improvements Rule - CRITICAL**:
-If no significant issues found, provide ONE minor suggestion for refinement. (e.g., "Try using more varied words to express the same idea." or "Try to use more topic-specific words in your answer.")
+First look for a real word problem in the transcript: a word repeated many times, a wrong or unnatural word choice, or a wrong collocation. If you find one, that is the improvement.
+Only if there is truly none, give ONE minor suggestion for refinement, and base it on a word or phrase the candidate actually uses (e.g., "You could replace one of the times you say 'good' with 'useful' or 'helpful'."). Do NOT give a general tip with no example from the answer.
+
+**Consistency Rule - CRITICAL**:
+- The same word or phrase must NOT appear as both a strength and an improvement.
+- A word or phrase that is wrong or unnatural is NOT a strength — put it in improvements instead (e.g. "shift in with me" is a wrong word choice for "move in with me", so do not praise it).
+- Do NOT praise a phrase as a strength when it shows the same problem you list as an improvement (e.g. do NOT praise "watch TV and watch movies" and then say the candidate repeats basic verbs).
+
+**Unclear Word Rule**: The transcript comes from speech recognition and can contain mis-heard words. If a word makes no sense in context (e.g. "we can see her scooters" in an answer about a calendar), it is probably a recognition error. Do NOT quote it or give feedback on it.
 
 For summary:
 - Write 1-2 sentences on vocabulary use (second person, present tense)
+- If there is an improvement, the summary should also name the main thing that holds the vocabulary back.
+- Keep the wording in line with the strengths and improvements: do NOT call the vocabulary "very limited" or say the meaning is unclear unless that is really true for most of the answer.
 
 For each strength:
 - 'point': Vocabulary strength (e.g., 'You use topic-specific words well.')
 - 'quote': Specific word/phrase
+- Each strength must be about a DIFFERENT feature. Do NOT give two strengths that say the same thing in different words (e.g. NOT "You use good words related to the topic" and "You use clear words to talk about education").
+- The quote must show the candidate's OWN choice of words. Do NOT quote names, dates, places or events copied from the task or calendar (e.g. NOT "Daniel's birthday"), and do NOT quote fillers or stock phrases such as "you know" or "so to speak" as evidence of idioms.
 
 For each improvement:
 - 'point': Improvement area (e.g., 'You use the same words too often.')
 - 'suggestion': Context-appropriate, natural suggestion (not dictionary synonyms)
+- Every word or phrase you suggest must itself be correct, natural English. Do NOT suggest a replacement that is still unnatural.
 
 **Quote Rules**:
 - Quote shortest evidence (usually the word itself)
@@ -392,6 +407,14 @@ For each improvement:
 - GOOD: "great idea" / "really useful"
 
 Provide 1-3 items per list. Both lists must have minimum 1 object.
+
+**Final Check - CRITICAL**: Before you write the JSON, check every strength quote and REMOVE the strength if:
+- the same words also appear in an improvement, or contain a wrong or unnatural word;
+- it is a name, date, place or event copied from the task or calendar;
+- it is a filler or stock phrase, not a real word choice;
+- it makes no sense in context (probably mis-heard by speech recognition, e.g. "her scooters").
+It is better to give ONE strong strength than three weak ones.
+Then check every improvement and REMOVE it if it only fixes a verb form (e.g. "likes travel" → "likes travelling") or quotes words that make no sense in context. Read each suggested phrase again: if it is still unnatural (e.g. "giving a try at"), replace it with a natural one.
 
 ### Input Data
 Task: {TASK_PROMPT}
